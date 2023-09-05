@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react"
-import * as _ from "lodash"
-import { useMediaQuery } from "usehooks-ts"
-import getOwnersForCollection from "../../lib/alchemy/getOwnersForCollection"
-import getParticipants from "../../lib/getParticipants"
+import { formatEther } from "ethers/lib/utils"
+import { useNetwork } from "wagmi"
 import LeaderboardRow from "./LeaderboardRow"
 import SkeletonTableBody from "./SkeletonTableBody"
 import Layout from "../Layout"
 import getProtocolRewardsLeaderboard from "../../lib/getProtocolRewardsLeaderboard"
-import { formatEther } from "ethers/lib/utils"
-import { useNetwork } from "wagmi"
 
 const LeaderboardPage = () => {
   const { chain } = useNetwork()
@@ -17,8 +13,6 @@ const LeaderboardPage = () => {
   useEffect(() => {
     const fetchTopCollectors = async () => {
       const leaderboardData = await getProtocolRewardsLeaderboard(chain.id)
-      console.log("SWEETS response", leaderboardData)
-
       // Mapping the new leaderboardData structure to match the table data
       const tableData = leaderboardData.map((item) => ({
         walletAddress: item.creator,
@@ -30,8 +24,6 @@ const LeaderboardPage = () => {
     }
     fetchTopCollectors()
   }, [chain])
-
-  console.log("SWEETS COLLECTORs", collectors)
 
   return (
     <Layout type="contained">

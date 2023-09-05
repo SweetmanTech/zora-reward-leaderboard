@@ -28,10 +28,7 @@ export const ethGetLogs = async (chainId, contractAddress, topics) => {
 
   try {
     const response = await axios.post(endpoint, payload)
-    console.log("SWEETS response:", response)
-
     const logs = response.data.result
-
     return logs
   } catch (err) {
     // eslint-disable-next-line no-console

@@ -1,15 +1,9 @@
-import Link from "next/link"
 import { useEffect, useState } from "react"
-import { useMediaQuery } from "usehooks-ts"
 import retryGetEns from "../../lib/retryGetEns"
 import truncateEthAddress from "../../lib/truncateEthAddress"
-import PFP from "../PFP"
 
 const LeaderboardRow = ({ address, numberOwned, rank }) => {
   const [ensName, setEnsName] = useState(null as string)
-
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const isIphone = useMediaQuery("(max-width: 320px)")
 
   useEffect(() => {
     const init = async () => {

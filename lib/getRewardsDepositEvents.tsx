@@ -8,10 +8,7 @@ export const getRewardsDepositEvents = async (chainId) => {
   const eventSignature =
     "RewardsDeposit(address,address,address,address,address,address,uint256,uint256,uint256,uint256,uint256)"
   const topics = [utils.id(eventSignature)]
-  console.log("SWEETS CHAINID", chainId)
-  console.log("SWEETS topics", topics)
   const rawLogs = await ethGetLogs(chainId, PROTOCOL_REWARDS_ADDRESS, topics)
-  console.log("SWEETS rawLogs", rawLogs)
 
   const parsedLogs = rawLogs.map((log, index) => {
     try {
@@ -44,6 +41,7 @@ export const getRewardsDepositEvents = async (chainId) => {
         zoraReward: decodedData[7].toString(),
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Error parsing log at index ${index}:`, log)
       throw error
     }
