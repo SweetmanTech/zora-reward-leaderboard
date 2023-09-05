@@ -6,28 +6,30 @@ import getParticipants from "../../lib/getParticipants"
 import LeaderboardRow from "./LeaderboardRow"
 import SkeletonTableBody from "./SkeletonTableBody"
 import Layout from "../Layout"
+import getProtocolRewardsLeaderboard from "../../lib/getProtocolRewardsLeaderboard"
+import { formatEther } from "ethers/lib/utils"
 
 const LeaderboardPage = () => {
   const [collectors, setCollectors] = useState([])
-  const isMobile = useMediaQuery("(max-width: 768px)")
 
   useEffect(() => {
     const fetchTopCollectors = async () => {
-      const { ownerAddresses } = await getOwnersForCollection()
-      const newCollectors = _.orderBy(ownerAddresses, ["tokenBalances[0].balance"], ["desc"])
-      const addressToTwitter = await getParticipants()
-      const mappedData = newCollectors.map((collector) => ({
-        walletAddress: collector.ownerAddress,
-        nftsOwned: collector.tokenBalances[0].balance,
+      const leaderboardData = await getProtocolRewardsLeaderboard(10)
+      console.log("SWEETS response", leaderboardData)
+
+      // Mapping the new leaderboardData structure to match the table data
+      const tableData = leaderboardData.map((item) => ({
+        walletAddress: item.creator,
+        nftsOwned: formatEther(item.totalCreatorReward), // Changed from `nftsOwned` to `totalCreatorReward`
+        twitterHandle: "",
       }))
-      const tableData = mappedData.map((item) => ({
-        ...item,
-        twitterHandle: addressToTwitter[item.walletAddress.toString()],
-      }))
+
       setCollectors(tableData)
     }
     fetchTopCollectors()
   }, [])
+
+  console.log("SWEETS COLLECTORs", collectors)
 
   return (
     <Layout type="contained">
@@ -51,7 +53,7 @@ const LeaderboardPage = () => {
             drop-shadow-[0_2px_2px_rgba(0,0,0,0.45)] 
             font-[500]"
           >
-            Currently Tracking: Divine Ancestral Pendants Collect and burn 88 to redeem a Passport
+            Currently Tracking: Zora Protocol Rewards
           </div>
         </div>
         <div className="md:px-4 w-full flex justify-center">
@@ -86,7 +88,7 @@ const LeaderboardPage = () => {
                     text-[8px] xs:text-[11px] md:text-[18px]
                     w-[100px] xs:!w-[130px] md:!w-[200px]"
                   >
-                    # of NFTs {!isMobile ? "Owned" : ""}
+                    Creator Rewards Earned
                   </th>
                   <th
                     className="p-[5px] md:p-4 
@@ -97,14 +99,6 @@ const LeaderboardPage = () => {
                   >
                     Address
                   </th>
-                  <th
-                    className="p-[5px] md:p-4 
-                    text-left text-center 
-                    uppercase 
-                    text-[8px] xs:text-[11px] md:text-[18px]"
-                  >
-                    Twitter
-                  </th>
                 </tr>
               </thead>
               {collectors.length > 0 ? (
@@ -114,7 +108,6 @@ const LeaderboardPage = () => {
                       key={collector.walletAddress}
                       address={collector.walletAddress}
                       numberOwned={collector.nftsOwned}
-                      twitterHandle={collector.twitterHandle}
                       rank={index + 1}
                     />
                   ))}

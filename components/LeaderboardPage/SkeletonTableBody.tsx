@@ -14,9 +14,6 @@ const SkeletonTableBody = () => (
           <td className="px-4 py-4">
             <div className="w-32 h-3 bg-gray-200 animate-pulse rounded-2xl" />
           </td>
-          <td className="px-4 py-4">
-            <div className="w-24 h-3 bg-gray-200 animate-pulse rounded-2xl" />
-          </td>
         </tr>
       ))}
   </tbody>
