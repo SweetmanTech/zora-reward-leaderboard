@@ -12,7 +12,7 @@ const LeaderboardPage = () => {
 
   useEffect(() => {
     const fetchTopCollectors = async () => {
-      const leaderboardData = await getProtocolRewardsLeaderboard(chain.id)
+      const leaderboardData = await getProtocolRewardsLeaderboard(chain?.id || 1)
       // Mapping the new leaderboardData structure to match the table data
       const tableData = leaderboardData.map((item) => ({
         walletAddress: item.creator,
@@ -30,7 +30,7 @@ const LeaderboardPage = () => {
       <div className="w-full pt-24 mx-auto">
         <div
           className="
-          font-[eigerdals] 
+          font-hanson
           dark:text-white text-center 
           text-[40px] md:text-[75px] 
           font-bold pt-6
@@ -40,14 +40,14 @@ const LeaderboardPage = () => {
         </div>
         <div className="w-full flex justify-center pb-4">
           <div
-            className="font-quicksand 
+            className="font-hanson 
             dark:text-white text-center 
             w-[300px] xs:w-[350px] md:w-[430px] 
             text-[13px] xs:text-[15px] md:text-[18px] 
             drop-shadow-[0_2px_2px_rgba(0,0,0,0.45)] 
             font-[500]"
           >
-            Currently Tracking: Zora Protocol Rewards
+            Currently Tracking: <br /> Zora Protocol Rewards
           </div>
         </div>
         <div className="md:px-4 w-full flex justify-center">
@@ -61,7 +61,7 @@ const LeaderboardPage = () => {
             scrollbar-track-white 
             scrollbar-thumb-rounded-full"
           >
-            <table className="w-full font-quicksand bg-white">
+            <table className="w-full font-hanson bg-white">
               <thead className="border-b-[2px] border-black border-solid">
                 <tr>
                   <th

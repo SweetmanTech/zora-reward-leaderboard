@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: 'Hanson';
+  src: url('/fonts/hanson/Hanson-Bold.otf') format('opentype'), 
+       url('/fonts/hanson/Hanson-Bold.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
   font-family: "Aldrich";
   font-style: normal;
   font-weight: 400;
