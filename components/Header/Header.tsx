@@ -5,7 +5,6 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import DesktopExplore from "../DesktopExplore"
 import { useTheme } from "../../providers/ThemeProvider"
-import DiscordIcon from "../DiscordIcon"
 import CustomConnectWallet from "../CustomConnectWallet"
 import DesktopCollections from "../DesktopCollections"
 import { ToggleButton } from "../../shared/Button"
@@ -111,7 +110,6 @@ const Header: FC<HeaderProps> = () => {
               )}
               <DesktopExplore />
               <DesktopCollections />
-              <DiscordIcon />
               <a href="https://twitter.com/Cre8orsNFT" target="_blank" rel="noreferrer">
                 <div className="cursor-pointer ">
                   <Image

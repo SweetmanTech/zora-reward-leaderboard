@@ -7,16 +7,11 @@ import { RainbowKitProvider, getDefaultWallets, connectorsForWallets } from "@ra
 import { configureChains, createConfig, WagmiConfig } from "wagmi"
 import { goerli, mainnet } from "@wagmi/core/chains"
 import { ToastContainer } from "react-toastify"
-import { SessionProvider } from "next-auth/react"
 import * as React from "react"
 import { Analytics } from "@vercel/analytics/react"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
-import { ChatProvider } from "../providers/ChatProvider"
 import { ThemeProvider } from "../providers/ThemeProvider"
-import { AdminProvider } from "../providers/AdminProvider"
-import { UserProvider } from "../providers/UserProvider"
-import { MintProvider } from "../providers/MintProvider"
 
 const myChains = [process.env.NEXT_PUBLIC_TESTNET ? goerli : mainnet]
 const { chains, publicClient, webSocketPublicClient } = configureChains(myChains, [
@@ -25,7 +20,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(myChains
 ])
 
 const { wallets } = getDefaultWallets({
-  appName: "CRE8ORS",
+  appName: "ZORA REWARDS LEADERBOARD",
   projectId: "68c5ce6a0bf63be0182de421f19951b8",
   chains,
 })
@@ -43,19 +38,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider modalSize="compact" chains={chains}>
         <ThemeProvider>
-          <UserProvider>
-            <MintProvider>
-              <SessionProvider>
-                <AdminProvider>
-                  <ChatProvider>
-                    <Component {...pageProps} />
-                    <ToastContainer />
-                    <Analytics />
-                  </ChatProvider>
-                </AdminProvider>
-              </SessionProvider>
-            </MintProvider>
-          </UserProvider>
+          <Component {...pageProps} />
+          <ToastContainer />
+          <Analytics />
         </ThemeProvider>
       </RainbowKitProvider>
     </WagmiConfig>

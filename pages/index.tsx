@@ -1,6 +1,5 @@
-import type { NextPage } from "next"
-import EnterPage from "../components/Enter"
+import LeaderboardPage from "../components/LeaderboardPage"
 
-const Enter: NextPage = () => <EnterPage />
+const Leaderboard = () => <LeaderboardPage />
 
-export default Enter
+export default Leaderboard
