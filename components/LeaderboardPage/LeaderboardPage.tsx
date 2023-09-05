@@ -8,13 +8,15 @@ import SkeletonTableBody from "./SkeletonTableBody"
 import Layout from "../Layout"
 import getProtocolRewardsLeaderboard from "../../lib/getProtocolRewardsLeaderboard"
 import { formatEther } from "ethers/lib/utils"
+import { useNetwork } from "wagmi"
 
 const LeaderboardPage = () => {
+  const { chain } = useNetwork()
   const [collectors, setCollectors] = useState([])
 
   useEffect(() => {
     const fetchTopCollectors = async () => {
-      const leaderboardData = await getProtocolRewardsLeaderboard(10)
+      const leaderboardData = await getProtocolRewardsLeaderboard(chain.id)
       console.log("SWEETS response", leaderboardData)
 
       // Mapping the new leaderboardData structure to match the table data
@@ -27,7 +29,7 @@ const LeaderboardPage = () => {
       setCollectors(tableData)
     }
     fetchTopCollectors()
-  }, [])
+  }, [chain])
 
   console.log("SWEETS COLLECTORs", collectors)
 
