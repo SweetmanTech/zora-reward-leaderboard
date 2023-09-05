@@ -4,7 +4,6 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useAccount } from "wagmi"
 import CustomConnectWallet from "../CustomConnectWallet"
-import DiscordIcon from "../DiscordIcon"
 import { useTheme } from "../../providers/ThemeProvider"
 import { ToggleButton } from "../../shared/Button"
 
@@ -118,7 +117,6 @@ const MenuList = ({ toggleMenu }) => {
         <div className={menuItemClassName}>Relics</div>
       </a>
       <div className="flex flex-row items-center justify-around">
-        <DiscordIcon />
         <a href="https://twitter.com/Cre8orsNFT" target="_blank" rel="noreferrer">
           <div className="pt-2 cursor-pointer ">
             <Image
