@@ -38,8 +38,8 @@ const CustomConnectWallet = () => (
               return (
                 <button
                   className={`font-bold uppercase text-[14px] md:text-[17px] lg:md:text-sm 
-                    font-quicksand
-                    text-white md:text-black`}
+                    font-hanson
+                    text-white`}
                   onClick={openConnectModal}
                   type="button"
                 >
