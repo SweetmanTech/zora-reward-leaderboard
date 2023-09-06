@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { AiFillLock } from "react-icons/ai"
 import { useAccount } from "wagmi"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 import { Button } from "../../shared/Button"
 import MintingModal from "../MintingModal"
 import useZoraMint from "../../hooks/useZoraMint"
-import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 const TokenGateRow = ({ numberOfRows, fetchBalance }) => {
   const [minting, setMinting] = useState(false)
