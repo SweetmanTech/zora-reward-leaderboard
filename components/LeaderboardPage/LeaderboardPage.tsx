@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { formatEther } from "ethers/lib/utils"
 import { useNetwork } from "wagmi"
-import LeaderboardRow from "./LeaderboardRow"
 import SkeletonTableBody from "./SkeletonTableBody"
 import Layout from "../Layout"
 import getProtocolRewardsLeaderboard from "../../lib/getProtocolRewardsLeaderboard"
+import LeaderboardTableBody from "./LeaderboardBody"
 
 const LeaderboardPage = () => {
   const { chain } = useNetwork()
@@ -96,16 +96,7 @@ const LeaderboardPage = () => {
                 </tr>
               </thead>
               {collectors.length > 0 ? (
-                <tbody>
-                  {collectors.map((collector, index) => (
-                    <LeaderboardRow
-                      key={collector.walletAddress}
-                      address={collector.walletAddress}
-                      numberOwned={collector.nftsOwned}
-                      rank={index + 1}
-                    />
-                  ))}
-                </tbody>
+                <LeaderboardTableBody rows={collectors} />
               ) : (
                 <SkeletonTableBody />
               )}
