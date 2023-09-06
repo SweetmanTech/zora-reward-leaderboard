@@ -53,8 +53,8 @@ const CustomConnectWallet = () => (
                 <button
                   onClick={openChainModal}
                   type="button"
-                  className={`font-bold uppercase text-[14px] md:text-[17px] lg:md:text-sm font-quicksand
-                    text-white md:text-black`}
+                  className={`font-bold uppercase text-[14px] md:text-[17px] lg:md:text-sm font-hanson
+                    text-white`}
                 >
                   Wrong network
                 </button>
@@ -96,8 +96,8 @@ const CustomConnectWallet = () => (
                 <button
                   onClick={openAccountModal}
                   type="button"
-                  className={`font-bold uppercase text-[10.5px] md:text-[17px] lg:md:text-sm font-quicksand 
-                    text-white md:text-black`}
+                  className={`font-bold uppercase text-[10.5px] md:text-[17px] lg:md:text-sm font-hanson 
+                    text-white`}
                 >
                   {account.displayName}
                   {Number(parseFloat(account.displayBalance).toFixed(3)) > 0

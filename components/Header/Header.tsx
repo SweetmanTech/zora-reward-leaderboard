@@ -9,7 +9,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = () => (
   <nav
     className="fixed top-0 z-50 w-screen
-      text-black bg-transparent 
+       bg-transparent 
       flex justify-center"
     id="header_nav_bar"
   >

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import retryGetEns from "../../lib/retryGetEns"
 import truncateEthAddress from "../../lib/truncateEthAddress"
+import Zorb from "../Zorb"
 
 const LeaderboardRow = ({ address, numberOwned, rank }) => {
   const [ensName, setEnsName] = useState(null as string)
@@ -17,7 +18,7 @@ const LeaderboardRow = ({ address, numberOwned, rank }) => {
   }, [address])
 
   return (
-    <tr key={address} className="text-center bg-white hover:bg-blue-300">
+    <tr key={address} className="text-center bg-white text-black hover:bg-blue-300">
       <td
         className="text-[8px] xs:text-[11px] md:text-[16px]
         p-[5px] md:px-4 md:py-2 border-r-2 border-black"
@@ -36,7 +37,15 @@ const LeaderboardRow = ({ address, numberOwned, rank }) => {
         text-[8px] text-[11px] md:text-[16px]
         p-[5px] md:px-4 md:py-2 border-r-2 border-black"
       >
-        {ensName || truncateEthAddress(address)}
+        <a
+          href={`https://zora.co/${ensName || address}`}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-3"
+        >
+          <Zorb address={address} width={25} height={25} />
+          {ensName || truncateEthAddress(address)}
+        </a>
       </td>
     </tr>
   )

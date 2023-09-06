@@ -5,7 +5,7 @@ import Header from "../Header"
 
 function BaseLayout({ children }: ILayout) {
   return (
-    <div className="h-screen text-black bg-[black]">
+    <div className="h-screen text-white bg-[black]">
       <SeoHead
         title="Cre8ors"
         description="Welcome to the next generation of creativity."

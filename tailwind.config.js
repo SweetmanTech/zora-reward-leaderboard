@@ -17,10 +17,6 @@ module.exports = {
     extend: {
       fontFamily: {
         hanson: ["Hanson", "serif"],
-        aldrich: ["Aldrich", "sans-serif"],
-        objektivmk1_bold: ["Objektiv Mk1 Trial", "sans-serif"],
-        eigerdals: ["Eigerdals", "sans-serif"],
-        objektivmk1: ["Objektiv Mk1 Trial Rg", "sans-serif"],
         quicksand: ["Quicksand", "sans-serif"],
       },
       screens: {

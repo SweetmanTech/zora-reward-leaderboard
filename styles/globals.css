@@ -9,42 +9,6 @@
   font-weight: 400;
   font-style: normal;
 }
-@font-face {
-  font-family: "Aldrich";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/Aldrich/Aldrich-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Objektiv Mk1 Trial";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/ObjectiveMk1/ObjektivMk1_Trial_Bd.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Eigerdals";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/Eigerdals/Eigerdals_W00_Heavy.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Objektiv Mk1 Trial Rg";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/ObjectiveMK1Norm/ObjektivMk1_Trial_Rg.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Quicksand";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/fonts/Quicksand/static/Quicksand-Regular.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Quicksand";
-  font-style: normal;
-  font-weight: 700;
-  src: url("/fonts/Quicksand/static/Quicksand-Bold.ttf") format("truetype");
-}
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;

@@ -31,7 +31,7 @@ const LeaderboardPage = () => {
         <div
           className="
           font-hanson
-          dark:text-white text-center 
+          text-center 
           text-[40px] md:text-[75px] 
           font-bold pt-6
         "
@@ -41,7 +41,7 @@ const LeaderboardPage = () => {
         <div className="w-full flex justify-center pb-4">
           <div
             className="font-hanson 
-            dark:text-white text-center 
+            text-center 
             w-[300px] xs:w-[350px] md:w-[430px] 
             text-[13px] xs:text-[15px] md:text-[18px] 
             drop-shadow-[0_2px_2px_rgba(0,0,0,0.45)] 
@@ -61,7 +61,7 @@ const LeaderboardPage = () => {
             scrollbar-track-white 
             scrollbar-thumb-rounded-full"
           >
-            <table className="w-full font-hanson bg-white">
+            <table className="w-full font-hanson bg-white text-black">
               <thead className="border-b-[2px] border-black border-solid">
                 <tr>
                   <th
