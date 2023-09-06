@@ -19,6 +19,7 @@ const useBalanceOf = () => {
   )
 
   const fetchBalance = useCallback(async () => {
+    if (!address) return
     setLoading(true)
     const balanceOf = await dropContract.balanceOf(address)
     setBalance(balanceOf.toNumber())
