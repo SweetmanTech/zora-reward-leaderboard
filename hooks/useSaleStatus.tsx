@@ -21,19 +21,13 @@ const useSaleStatus = () => {
   )
 
   const initializeStatus = useCallback(async () => {
-    console.log("SWEETS chainId", process.env.NEXT_PUBLIC_CHAIN_ID)
-    console.log("SWEETS initializeStatus", cre8orsContract)
-
     setPresaleActive(null)
     setPublicSaleActive(null)
     setPublicSaleStart(0)
     setPublicSaleActive(0)
 
     setLoading(true)
-    console.log("SWEETS getting saleDetails")
-
     const details = await cre8orsContract.saleDetails()
-    console.log("SWEETS DETAILS", details)
     setPublicSaleActive(details.publicSaleActive)
     setPresaleActive(details.presaleActive)
     setPresaleStart(Math.floor(parseInt(details.presaleStart, 10) / 1000000))

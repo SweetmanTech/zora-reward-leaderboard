@@ -4,7 +4,6 @@ import LeaderboardRow from "./LeaderboardRow"
 
 const LeaderboardTableBody = ({ rows }) => {
   const { balance, fetchBalance } = useBalanceOf()
-  console.log("SWEETS BALANCE", balance)
   return (
     <tbody>
       {rows.map((collector, index) => {

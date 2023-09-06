@@ -19,13 +19,8 @@ const useBalanceOf = () => {
   )
 
   const fetchBalance = useCallback(async () => {
-    console.log("SWEETS chainId", process.env.NEXT_PUBLIC_CHAIN_ID)
-    console.log("SWEETS fetchBalance", dropContract)
-
     setLoading(true)
-    console.log("SWEETS getting balanceOf")
     const balanceOf = await dropContract.balanceOf(address)
-    console.log("SWEETS balanceOf", balanceOf)
     setBalance(balanceOf.toNumber())
     setLoading(false)
   }, [dropContract, address])
