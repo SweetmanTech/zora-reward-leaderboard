@@ -1,5 +1,3 @@
-import Image from "next/image"
-import { useTheme } from "../../providers/ThemeProvider"
 import Zorb from "../Zorb"
 
 interface FooterProps {
