@@ -1,14 +1,22 @@
 import { useState } from "react"
 import { AiFillLock } from "react-icons/ai"
+import { useAccount } from "wagmi"
 import { Button } from "../../shared/Button"
 import MintingModal from "../MintingModal"
 import useZoraMint from "../../hooks/useZoraMint"
+import { useConnectModal } from "@rainbow-me/rainbowkit"
 
 const TokenGateRow = ({ numberOfRows, fetchBalance }) => {
   const [minting, setMinting] = useState(false)
   const { mintWithRewards } = useZoraMint()
+  const { isConnected } = useAccount()
+  const { openConnectModal } = useConnectModal()
 
   const handleClick = async () => {
+    if (!isConnected) {
+      openConnectModal()
+      return
+    }
     setMinting(true)
     await mintWithRewards()
     await fetchBalance()
