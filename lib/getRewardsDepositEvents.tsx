@@ -29,9 +29,9 @@ export const getRewardsDepositEvents = async (chainId) => {
 
       return {
         creator: getCleanedEthereumAddress(log.topics[1].toLowerCase()), // directly from topic
-        createReferral: log.topics[2].toLowerCase(), // directly from topic
-        mintReferral: log.topics[3].toLowerCase(), // directly from topic
-        firstMinter: decodedData[0],
+        createReferral: getCleanedEthereumAddress(log.topics[2].toLowerCase()), // directly from topic
+        mintReferral: getCleanedEthereumAddress(log.topics[3].toLowerCase()), // directly from topic
+        firstMinter: getCleanedEthereumAddress(decodedData[0]),
         zora: decodedData[1],
         from: decodedData[2],
         creatorReward: decodedData[3].toString(),

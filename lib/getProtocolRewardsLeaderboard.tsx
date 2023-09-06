@@ -7,6 +7,16 @@ const getProtocolRewardsLeaderboard = async (chainId) => {
       acc[curr.creator] = BigInt(0)
     }
     acc[curr.creator] += BigInt(curr.creatorReward)
+
+    if (curr.createReferral === curr.creator) {
+      acc[curr.creator] += BigInt(curr.createReferralReward)
+    }
+    if (curr.firstMinter === curr.creator) {
+      acc[curr.creator] += BigInt(curr.firstMinterReward)
+    }
+    if (curr.mintReferral === curr.creator) {
+      acc[curr.creator] += BigInt(curr.mintReferralReward)
+    }
     return acc
   }, {})
 
