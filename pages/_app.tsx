@@ -5,15 +5,23 @@ import "react-toastify/dist/ReactToastify.css"
 import type { AppProps } from "next/app"
 import { RainbowKitProvider, getDefaultWallets, connectorsForWallets } from "@rainbow-me/rainbowkit"
 import { configureChains, createConfig, WagmiConfig } from "wagmi"
-import { goerli, mainnet } from "@wagmi/core/chains"
+import {
+  goerli,
+  mainnet,
+  base,
+  zora,
+  optimism,
+  baseGoerli,
+  zoraTestnet,
+  optimismGoerli,
+} from "@wagmi/core/chains"
 import { ToastContainer } from "react-toastify"
 import * as React from "react"
 import { Analytics } from "@vercel/analytics/react"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
-import { ThemeProvider } from "../providers/ThemeProvider"
 
-const myChains = [process.env.NEXT_PUBLIC_TESTNET ? goerli : mainnet]
+const myChains = [mainnet, base, zora, optimism, goerli, baseGoerli, zoraTestnet, optimismGoerli]
 const { chains, publicClient, webSocketPublicClient } = configureChains(myChains, [
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY }),
   publicProvider(),
@@ -37,11 +45,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider modalSize="compact" chains={chains}>
-        <ThemeProvider>
-          <Component {...pageProps} />
-          <ToastContainer />
-          <Analytics />
-        </ThemeProvider>
+        <Component {...pageProps} />
+        <ToastContainer />
+        <Analytics />
       </RainbowKitProvider>
     </WagmiConfig>
   )

@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
   content: [
@@ -16,21 +16,18 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        aldrich: ["Aldrich", "sans-serif"],
-        objektivmk1_bold: ["Objektiv Mk1 Trial", "sans-serif"],
-        eigerdals: ["Eigerdals", "sans-serif"],
-        objektivmk1: ["Objektiv Mk1 Trial Rg", "sans-serif"],
+        hanson: ["Hanson", "serif"],
         quicksand: ["Quicksand", "sans-serif"],
       },
       screens: {
-        'ios' : '320px',
+        ios: "320px",
         samsungS8: "360px",
-        'xs': '390px',
+        xs: "390px",
         sm: "640px",
         md: "768px",
         lg: "1024px",
         xl: "1150px",
-        "2xl":'1315px',
+        "2xl": "1315px",
         "3xl": "1920px",
       },
     },

@@ -1,15 +1,10 @@
-import Link from "next/link"
 import { useEffect, useState } from "react"
-import { useMediaQuery } from "usehooks-ts"
 import retryGetEns from "../../lib/retryGetEns"
 import truncateEthAddress from "../../lib/truncateEthAddress"
-import PFP from "../PFP"
+import Zorb from "../Zorb"
 
-const LeaderboardRow = ({ address, numberOwned, rank, twitterHandle }) => {
+const LeaderboardRow = ({ address, numberOwned, rank }) => {
   const [ensName, setEnsName] = useState(null as string)
-
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const isIphone = useMediaQuery("(max-width: 320px)")
 
   useEffect(() => {
     const init = async () => {
@@ -23,7 +18,7 @@ const LeaderboardRow = ({ address, numberOwned, rank, twitterHandle }) => {
   }, [address])
 
   return (
-    <tr key={address} className="text-center bg-white hover:bg-blue-300">
+    <tr key={address} className="text-center bg-white text-black hover:bg-blue-300">
       <td
         className="text-[8px] xs:text-[11px] md:text-[16px]
         p-[5px] md:px-4 md:py-2 border-r-2 border-black"
@@ -34,35 +29,23 @@ const LeaderboardRow = ({ address, numberOwned, rank, twitterHandle }) => {
         className="text-[8px] text-[11px] md:text-[16px]
         p-[5px] md:px-4 md:py-2 border-r-2 border-black"
       >
-        {numberOwned}
+        {numberOwned}ETH
       </td>
       <td
-        className="flex md:items-center gap-[2px] md:gap-3 
+        className="flex items-center justify-center gap-[2px] md:gap-3 
         w-full
         text-[8px] text-[11px] md:text-[16px]
         p-[5px] md:px-4 md:py-2 border-r-2 border-black"
       >
-        <PFP
-          address={address}
-          height={isMobile ? 20 : 25}
-          // eslint-disable-next-line no-nested-ternary
-          width={isMobile ? (isIphone ? 15 : 20) : 25}
-        />
-        <Link href={`/collector/${address}`} type="button">
+        <a
+          href={`https://zora.co/${ensName || address}`}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-3"
+        >
+          <Zorb address={address} width={25} height={25} />
           {ensName || truncateEthAddress(address)}
-        </Link>
-      </td>
-      <td
-        className="text-[8px] text-[11px] md:text-[16px]
-        p-[5px] md:px-4 md:py-2"
-      >
-        {twitterHandle ? (
-          <a href={`https://twitter.com/${twitterHandle}`} target="_blank" rel="noreferrer">
-            {twitterHandle}
-          </a>
-        ) : (
-          "Not Connected"
-        )}
+        </a>
       </td>
     </tr>
   )

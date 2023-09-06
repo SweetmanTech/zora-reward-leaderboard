@@ -64,7 +64,7 @@ const EnterPage = () => {
         }`}
       >
         <div
-          className="appear font-bold text-[16px] xs:text-[18px] md:text-[26px] text-[black] uppercase font-quicksand"
+          className="appear font-bold text-[16px] xs:text-[18px] md:text-[26px] text-[black] uppercase font-hanson"
           ref={titleRef}
         >
           Cre·8·or • krē-ˈā-tər \ noun
@@ -73,7 +73,7 @@ const EnterPage = () => {
           className="appear 
             text-[16px] xs:text-[18px] md:text-[26px] 
             md:w-[611px] 
-            text-center uppercase font-quicksand"
+            text-center uppercase font-hanson"
           ref={contentRef}
         >
           Someone that brings (something)
