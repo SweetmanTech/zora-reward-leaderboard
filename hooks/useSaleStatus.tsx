@@ -1,7 +1,7 @@
 import { Contract } from "ethers"
 import { useCallback, useEffect, useMemo, useState } from "react"
-import cre8orsAbi from "../../lib/abi-cre8ors.json"
-import getDefaultProvider from "../../lib/getDefaultProvider"
+import abi from "../lib/abi-zora-drop.json"
+import getDefaultProvider from "../lib/getDefaultProvider"
 
 const useSaleStatus = () => {
   const [presaleActive, setPresaleActive] = useState<any>(null)
@@ -13,9 +13,9 @@ const useSaleStatus = () => {
   const cre8orsContract = useMemo(
     () =>
       new Contract(
-        process.env.NEXT_PUBLIC_CRE8ORS_ADDRESS,
-        cre8orsAbi,
-        getDefaultProvider(process.env.NEXT_PUBLIC_TESTNET ? 5 : 1),
+        process.env.NEXT_PUBLIC_DROP_ADDRESS,
+        abi,
+        getDefaultProvider(parseInt(process.env.NEXT_PUBLIC_CHAIN_ID, 10)),
       ),
     [],
   )

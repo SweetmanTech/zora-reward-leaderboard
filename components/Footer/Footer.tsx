@@ -16,7 +16,11 @@ const Footer: React.FC<FooterProps> = ({ className }) => (
         <Zorb />
       </a>
       by{" "}
-      <a href="https://x.com/sweetman_eth" target="_blank" rel="noreferrer">
+      <a
+        href="https://github.com/SweetmanTech/zora-reward-leaderboard"
+        target="_blank"
+        rel="noreferrer"
+      >
         sweetman.eth
       </a>
     </div>
