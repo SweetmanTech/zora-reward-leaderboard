@@ -1,6 +1,5 @@
 import axios from "axios"
 import { zora } from "@wagmi/core/chains"
-import { Client } from "@covalenthq/client-sdk"
 import getAlchemyBaseUrl from "./getAlchemyBaseUrl"
 
 export const ethGetLogs = async (chainId, contractAddress, topics) => {
