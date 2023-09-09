@@ -15,7 +15,7 @@ const useLeaderboard = () => {
       const leaderboardData = await getProtocolRewardsLeaderboard(chain?.id || 1, numberOfDays)
       const tableData = leaderboardData.map((item) => ({
         walletAddress: item.creator,
-        nftsOwned: formatEther(item.totalCreatorReward), // Changed from `nftsOwned` to `totalCreatorReward`
+        nftsOwned: formatEther(item.totalCreatorReward),
         twitterHandle: "",
       }))
 
