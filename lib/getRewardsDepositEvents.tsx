@@ -8,7 +8,6 @@ export const getRewardsDepositEvents = async (chainId, numberOfDays) => {
   const eventSignature =
     "RewardsDeposit(address,address,address,address,address,address,uint256,uint256,uint256,uint256,uint256)"
   const topics = [utils.id(eventSignature)]
-  console.log("SWEETS")
   const rawLogs = await ethGetLogs(chainId, PROTOCOL_REWARDS_ADDRESS, topics, numberOfDays)
 
   const parsedLogs = rawLogs.map((log, index) => {
