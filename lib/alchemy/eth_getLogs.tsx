@@ -2,7 +2,7 @@ import axios from "axios"
 import { zora } from "@wagmi/core/chains"
 import getAlchemyBaseUrl from "./getAlchemyBaseUrl"
 
-export const ethGetLogs = async (chainId, contractAddress, topics) => {
+export const ethGetLogs = async (chainId, contractAddress, topics, numberOfDays = 1) => {
   console.log("SWEETS GETITNG LOGS for ", chainId)
 
   let endpoint
@@ -20,35 +20,16 @@ export const ethGetLogs = async (chainId, contractAddress, topics) => {
     params: [],
   })
   const latestBlock = parseInt(latestBlockNumberResponse.data.result, 16)
-  console.log("SWEETS LATEST BLOCK", latestBlock)
-  const fromBlock = `0x${(latestBlock - 200_000).toString(16)}`
-  let toBlock = "latest"
-
-  // Specific block range for chainId 8453
-  if (chainId === 8453) {
-    toBlock = "0x24b827"
-  }
-
   console.log("SWEETS endpoint", endpoint)
 
-  const payload = {
-    id: 0,
-    jsonrpc: "2.0",
-    method: "eth_getLogs",
-    params: [
-      {
-        fromBlock,
-        toBlock,
-        address: contractAddress,
-        topics,
-      },
-    ],
-  }
+  const blocksIn24Hours = Math.floor((24 * 60 * 60) / 13.5)
+  const range = blocksIn24Hours * numberOfDays
+  const fromBlock = latestBlock - range
 
   // NEW
   const blockRange = 100_000
   const requests = []
-  for (let startBlock = 1; startBlock <= latestBlock; startBlock += blockRange) {
+  for (let startBlock = fromBlock; startBlock <= latestBlock; startBlock += blockRange) {
     const endBlock = Math.min(startBlock + blockRange - 1, latestBlock)
     console.log("SWEETS endBlock", endBlock)
 
@@ -71,25 +52,12 @@ export const ethGetLogs = async (chainId, contractAddress, topics) => {
 
   try {
     const responses = await Promise.all(requests)
-    const logs = responses.flatMap((response) => response.data.result)
+    const logs = responses.flatMap((response) => response.data.result).filter(Boolean)
     console.log("SWEETS PROMIS LOGS", logs)
 
     return logs
   } catch (err) {
     console.error("Error fetching logs:", err)
-    return []
-  }
-
-  // END
-
-  try {
-    const response = await axios.post(endpoint, payload)
-    console.log("SWEETS REPSONSE", response)
-    const logs = response.data.result
-    return logs
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error("SWEETS Error fetching logs:", err)
     return []
   }
 }

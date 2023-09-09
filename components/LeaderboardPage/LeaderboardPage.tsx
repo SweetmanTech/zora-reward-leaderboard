@@ -1,29 +1,11 @@
-import React, { useState, useEffect } from "react"
-import { formatEther } from "ethers/lib/utils"
-import { useNetwork } from "wagmi"
-import SkeletonTableBody from "./SkeletonTableBody"
 import Layout from "../Layout"
-import getProtocolRewardsLeaderboard from "../../lib/getProtocolRewardsLeaderboard"
-import LeaderboardTableBody from "./LeaderboardBody"
+import TimeFilter from "./TimeFilter"
+import LeaderboardTable from "./LeaderboardTable"
+import useLeaderboard from "../../hooks/useLeaderboard"
+import LoadingModal from "../LoadingModal"
 
 const LeaderboardPage = () => {
-  const { chain } = useNetwork()
-  const [collectors, setCollectors] = useState([])
-
-  useEffect(() => {
-    const fetchTopCollectors = async () => {
-      const leaderboardData = await getProtocolRewardsLeaderboard(chain?.id || 1)
-      // Mapping the new leaderboardData structure to match the table data
-      const tableData = leaderboardData.map((item) => ({
-        walletAddress: item.creator,
-        nftsOwned: formatEther(item.totalCreatorReward), // Changed from `nftsOwned` to `totalCreatorReward`
-        twitterHandle: "",
-      }))
-
-      setCollectors(tableData)
-    }
-    fetchTopCollectors()
-  }, [chain])
+  const { collectors, numberOfDays, setNumberOfDays, loading } = useLeaderboard()
 
   return (
     <Layout type="contained">
@@ -50,60 +32,15 @@ const LeaderboardPage = () => {
             Currently Tracking: <br /> Zora Protocol Rewards
           </div>
         </div>
-        <div className="md:px-4 w-full flex justify-center">
-          <div
-            className="w-[310px] xs:w-[370px] md:w-full 
-            border-[2px] border-[black] border-solid
-            h-[470px] rounded-lg 
-            overflow-auto 
-            shadow-[4px_4px_4px_rgb(0,0,0,0.25)] dark:shadow-[4px_4px_4px_rgb(255,255,255,0.25)]
-            scrollbar scrollbar-thumb-[black] 
-            scrollbar-track-white 
-            scrollbar-thumb-rounded-full"
-          >
-            <table className="w-full font-hanson bg-white text-black">
-              <thead className="border-b-[2px] border-black border-solid">
-                <tr>
-                  <th
-                    className="p-[5px] md:p-4 
-                    text-left border-r-[2px] 
-                    border-black text-center
-                    uppercase 
-                    text-[8px] xs:text-[11px] md:text-[18px]
-                    md:min-w-[100px]"
-                  >
-                    Rank
-                  </th>
-                  <th
-                    className="p-[5px] md:p-4 
-                    text-left border-r-[2px] 
-                    border-black text-center 
-                    uppercase 
-                    text-[8px] xs:text-[11px] md:text-[18px]
-                    w-[100px] xs:!w-[130px] md:!w-[200px]"
-                  >
-                    Creator Rewards Earned
-                  </th>
-                  <th
-                    className="p-[5px] md:p-4 
-                    text-left border-r-[2px] 
-                    border-black text-center 
-                    uppercase 
-                    text-[8px] xs:text-[11px] md:text-[18px]"
-                  >
-                    Address
-                  </th>
-                </tr>
-              </thead>
-              {collectors.length > 0 ? (
-                <LeaderboardTableBody rows={collectors} />
-              ) : (
-                <SkeletonTableBody />
-              )}
-            </table>
-          </div>
-        </div>
+        <TimeFilter setNumberOfDays={setNumberOfDays} numberOfDays={numberOfDays} />
+
+        <LeaderboardTable collectors={collectors} />
       </div>
+      {loading && (
+        <LoadingModal
+          description={`getting onchain data for\n previous ${numberOfDays} day(s)...`}
+        />
+      )}
     </Layout>
   )
 }

@@ -1,7 +1,7 @@
 import { getRewardsDepositEvents } from "./getRewardsDepositEvents"
 
-const getProtocolRewardsLeaderboard = async (chainId) => {
-  const data = await getRewardsDepositEvents(chainId)
+const getProtocolRewardsLeaderboard = async (chainId, numberOfDays) => {
+  const data = await getRewardsDepositEvents(chainId, numberOfDays)
   const groupedData = data.reduce((acc, curr) => {
     if (!acc[curr.creator]) {
       acc[curr.creator] = BigInt(0)
