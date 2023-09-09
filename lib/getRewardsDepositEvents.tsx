@@ -4,11 +4,11 @@ import getCleanedEthereumAddress from "./getCleanedEthereumAddress"
 
 const PROTOCOL_REWARDS_ADDRESS = "0x7777777F279eba3d3Ad8F4E708545291A6fDBA8B"
 
-export const getRewardsDepositEvents = async (chainId) => {
+export const getRewardsDepositEvents = async (chainId, numberOfDays) => {
   const eventSignature =
     "RewardsDeposit(address,address,address,address,address,address,uint256,uint256,uint256,uint256,uint256)"
   const topics = [utils.id(eventSignature)]
-  const rawLogs = await ethGetLogs(chainId, PROTOCOL_REWARDS_ADDRESS, topics)
+  const rawLogs = await ethGetLogs(chainId, PROTOCOL_REWARDS_ADDRESS, topics, numberOfDays)
 
   const parsedLogs = rawLogs.map((log, index) => {
     try {
@@ -24,7 +24,7 @@ export const getRewardsDepositEvents = async (chainId) => {
           "uint256", // firstMinterReward
           "uint256", // zoraReward
         ],
-        log.data,
+        log?.data,
       )
 
       return {
