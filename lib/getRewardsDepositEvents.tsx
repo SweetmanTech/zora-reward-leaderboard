@@ -64,6 +64,7 @@ export const getRewardsDepositEvents = async (chainId, numberOfDays) => {
         zoraReward: decodedData[7].toString(),
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Error parsing log at index ${index}:`, log)
       throw error
     }
