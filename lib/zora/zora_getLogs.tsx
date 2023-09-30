@@ -1,15 +1,7 @@
 import axios from "axios"
-import { zora } from "@wagmi/core/chains"
-import ethBlockNumber from "../alchemy/eth_blockNumber"
 
-export const zoraGetLogs = async (contractAddress, topics, numberOfDays = 1) => {
+export const zoraGetLogs = async (contractAddress, topics, latestBlock, fromBlock) => {
   const endpoint = "https://rpc.zora.energy"
-
-  const latestBlock = await ethBlockNumber(zora.id)
-  const secondsPerBlock = 2
-  const blocksIn24Hours = Math.floor((24 * 60 * 60) / secondsPerBlock)
-  const range = blocksIn24Hours * numberOfDays
-  const fromBlock = latestBlock - range
 
   const blockRange = 100_000
   const requests = []

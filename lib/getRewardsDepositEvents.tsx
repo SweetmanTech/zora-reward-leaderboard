@@ -31,7 +31,7 @@ export const getRewardsDepositEvents = async (chainId, numberOfDays) => {
   }
   const batchedLogs =
     chainId === zora.id
-      ? await zoraGetLogs(PROTOCOL_REWARDS_ADDRESS, topics, numberOfDays)
+      ? await zoraGetLogs(PROTOCOL_REWARDS_ADDRESS, topics, latestBlock, fromBlock)
       : await ethGetLogsBatch(chainId, requests)
 
   const parsedLogs = batchedLogs.map((log, index) => {
