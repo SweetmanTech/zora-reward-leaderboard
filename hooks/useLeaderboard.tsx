@@ -10,10 +10,12 @@ const useLeaderboard = () => {
   const [zoraFees, setZoraFees] = useState("")
   const [numberOfDays, setNumberOfDays] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [pagination, setPagination] = useState(100)
 
   useEffect(() => {
     const fetchTopCollectors = async () => {
       setLoading(true)
+      setPagination(1)
       const { leaderboardData, totalCreatorFees, totalZoraFees } = await getLeaderboard(
         numberOfDays,
       )
@@ -33,12 +35,22 @@ const useLeaderboard = () => {
       setCollectors(tableData)
       setCreatorFees(totalCreatorFees)
       setZoraFees(totalZoraFees)
+      setPagination(100)
       setLoading(false)
     }
     fetchTopCollectors()
   }, [chain, numberOfDays])
 
-  return { collectors, numberOfDays, setNumberOfDays, loading, creatorFees, zoraFees }
+  return {
+    collectors,
+    numberOfDays,
+    setNumberOfDays,
+    loading,
+    creatorFees,
+    zoraFees,
+    pagination,
+    setPagination,
+  }
 }
 
 export default useLeaderboard

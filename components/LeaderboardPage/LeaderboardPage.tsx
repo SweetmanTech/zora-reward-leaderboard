@@ -1,15 +1,11 @@
 import Layout from "../Layout"
 import TimeFilter from "./TimeFilter"
 import LeaderboardTable from "./LeaderboardTable"
-import useLeaderboard from "../../hooks/useLeaderboard"
-import LoadingModal from "../LoadingModal"
-import useEthPrice from "../../hooks/useEthPrice"
 import Earnings from "./Earnings"
+import { useLeaderboardProvider } from "../../providers/LeaderboardProvider"
 
 const LeaderboardPage = () => {
-  const { collectors, numberOfDays, setNumberOfDays, loading, zoraFees, creatorFees } =
-    useLeaderboard()
-  const { ethPrice } = useEthPrice() as any
+  const { zoraFees, creatorFees } = useLeaderboardProvider()
 
   return (
     <Layout type="contained">
@@ -37,17 +33,12 @@ const LeaderboardPage = () => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-around items-center">
-          <Earnings label="Creators are earning" fees={creatorFees} ethPrice={ethPrice} />
-          <TimeFilter setNumberOfDays={setNumberOfDays} numberOfDays={numberOfDays} />
-          <Earnings label="Zora is earning" fees={zoraFees} ethPrice={ethPrice} />
+          <Earnings label="Creators are earning" fees={creatorFees} />
+          <TimeFilter />
+          <Earnings label="Zora is earning" fees={zoraFees} />
         </div>
-        <LeaderboardTable collectors={collectors} />
+        <LeaderboardTable />
       </div>
-      {loading && (
-        <LoadingModal
-          description={`getting onchain data for\n previous ${numberOfDays} day(s)...`}
-        />
-      )}
     </Layout>
   )
 }

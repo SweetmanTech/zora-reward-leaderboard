@@ -1,7 +1,9 @@
 import { formatEther } from "ethers/lib/utils"
 import { useState } from "react"
+import { useLeaderboardProvider } from "../../providers/LeaderboardProvider"
 
-const Earnings = ({ label, fees, ethPrice }) => {
+const Earnings = ({ label, fees }) => {
+  const { ethPrice } = useLeaderboardProvider()
   const [showUsd, setShowUsd] = useState(false)
   const creator = fees && parseFloat(formatEther(fees)) * (showUsd ? ethPrice : 1)
 
