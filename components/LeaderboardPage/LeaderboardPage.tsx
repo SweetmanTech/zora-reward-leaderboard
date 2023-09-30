@@ -4,10 +4,14 @@ import TimeFilter from "./TimeFilter"
 import LeaderboardTable from "./LeaderboardTable"
 import useLeaderboard from "../../hooks/useLeaderboard"
 import LoadingModal from "../LoadingModal"
+import useEthPrice from "../../hooks/useEthPrice"
+import CreatorEarnings from "./CreatorEarnings"
+import Earnings from "./Earnings"
 
 const LeaderboardPage = () => {
   const { collectors, numberOfDays, setNumberOfDays, loading, zoraFees, creatorFees } =
     useLeaderboard()
+  const { ethPrice } = useEthPrice() as any
 
   return (
     <Layout type="contained">
@@ -34,16 +38,10 @@ const LeaderboardPage = () => {
             Currently Tracking: <br /> Zora Protocol Rewards
           </div>
         </div>
-        <div className="flex">
-          <div className="flex flex-col">
-            <span>CREATORS</span>
-            {creatorFees && parseFloat(formatEther(creatorFees)).toFixed(2)} ETH
-          </div>
+        <div className="flex justify-around">
+          <Earnings label="Creators are earning" fees={creatorFees} ethPrice={ethPrice} />
           <TimeFilter setNumberOfDays={setNumberOfDays} numberOfDays={numberOfDays} />
-          <div className="flex flex-col ">
-            <span>ZORA</span>
-            <span>{zoraFees && parseFloat(formatEther(zoraFees)).toFixed(2)} ETH</span>
-          </div>
+          <Earnings label="Zora is earning" fees={zoraFees} ethPrice={ethPrice} />
         </div>
         <LeaderboardTable collectors={collectors} />
       </div>

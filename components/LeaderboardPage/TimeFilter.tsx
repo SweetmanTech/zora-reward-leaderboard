@@ -10,7 +10,7 @@ const TimeFilter = ({ numberOfDays, setNumberOfDays }) => {
   }, [chain])
 
   return (
-    <div className="w-full flex justify-center mb-4">
+    <div className="flex justify-center mb-4">
       <button
         type="button"
         className={`mx-2 p-2 rounded rounded-lg ${numberOfDays === 1 ? "bg-gray-300" : ""}`}

@@ -8,7 +8,7 @@ import ChainRow from "./ChainRow"
 const LeaderboardRow = ({ row, rank }) => {
   console.log("SWEETS ROW", row)
   const {
-    address,
+    walletAddress: address,
     nftsOwned: numberOwned,
     ethereumReward,
     optimismReward,
@@ -70,7 +70,13 @@ const LeaderboardRow = ({ row, rank }) => {
           baseReward,
           zoraReward,
         }).map((chain) => (
-          <ChainRow key={chain.chainSymbol} symbol={chain.chainSymbol} amount={chain.amount} />
+          <ChainRow
+            address={address}
+            icon={chain.icon}
+            key={chain.chainSymbol}
+            symbol={chain.chainSymbol}
+            amount={chain.amount}
+          />
         ))}
     </>
   )
