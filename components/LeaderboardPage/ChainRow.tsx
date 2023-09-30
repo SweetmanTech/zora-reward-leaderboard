@@ -12,7 +12,7 @@ const ChainRow = ({ address, symbol, amount, icon }) => (
       ) : (
         <Image src={icon} width={20} height={20} alt="chainicon" />
       )}
-      {symbol}: {amount && (amount > 1 ? amount.toFixed(2) : amount)}ETH
+      {symbol}: {amount}ETH
     </td>
     <td /> {/* Empty cell for the address */}
   </tr>
