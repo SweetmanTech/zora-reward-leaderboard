@@ -1,10 +1,14 @@
+import { useLeaderboardProvider } from "../../providers/LeaderboardProvider"
 import LeaderboardTableBody from "./LeaderboardTableBody"
 import SkeletonTableBody from "./SkeletonTableBody"
 
-const LeaderboardTable = ({ collectors }) => (
-  <div className="md:px-4 w-full flex justify-center">
-    <div
-      className="w-[310px] xs:w-[370px] md:w-full 
+const LeaderboardTable = () => {
+  const { collectors } = useLeaderboardProvider()
+
+  return (
+    <div className="md:px-4 w-full flex justify-center">
+      <div
+        className="w-[310px] xs:w-[370px] md:w-full 
             border-[2px] border-[black] border-solid
             h-[470px] rounded-lg 
             overflow-auto 
@@ -12,45 +16,46 @@ const LeaderboardTable = ({ collectors }) => (
             scrollbar scrollbar-thumb-[black] 
             scrollbar-track-white 
             scrollbar-thumb-rounded-full"
-    >
-      <table className="w-full font-hanson bg-white text-black">
-        <thead className="border-b-[2px] border-black border-solid">
-          <tr>
-            <th
-              className="p-[5px] md:p-4 
+      >
+        <table className="w-full font-hanson bg-white text-black">
+          <thead className="border-b-[2px] border-black border-solid">
+            <tr>
+              <th
+                className="p-[5px] md:p-4 
                     text-left border-r-[2px] 
                     border-black text-center
                     uppercase 
                     text-[8px] xs:text-[11px] md:text-[18px]
                     md:min-w-[100px]"
-            >
-              Rank
-            </th>
-            <th
-              className="p-[5px] md:p-4 
+              >
+                Rank
+              </th>
+              <th
+                className="p-[5px] md:p-4 
                     text-left border-r-[2px] 
                     border-black text-center 
                     uppercase 
                     text-[8px] xs:text-[11px] md:text-[18px]
                     w-[100px] xs:!w-[130px] md:!w-[200px]"
-            >
-              Creator Rewards Earned
-            </th>
-            <th
-              className="p-[5px] md:p-4 
+              >
+                Creator Rewards Earned
+              </th>
+              <th
+                className="p-[5px] md:p-4 
                     text-left border-r-[2px] 
                     border-black text-center 
                     uppercase 
                     text-[8px] xs:text-[11px] md:text-[18px]"
-            >
-              Address
-            </th>
-          </tr>
-        </thead>
-        {collectors.length > 0 ? <LeaderboardTableBody rows={collectors} /> : <SkeletonTableBody />}
-      </table>
+              >
+                Address
+              </th>
+            </tr>
+          </thead>
+          {collectors.length > 0 ? <LeaderboardTableBody /> : <SkeletonTableBody />}
+        </table>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default LeaderboardTable
