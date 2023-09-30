@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { formatEther } from "ethers/lib/utils"
 import { useNetwork } from "wagmi"
-import getProtocolRewardsLeaderboard from "../lib/getProtocolRewardsLeaderboard"
+import getLeaderboard from "../lib/getLeaderboard"
 
 const useLeaderboard = () => {
   const { chain } = useNetwork()
@@ -14,8 +14,10 @@ const useLeaderboard = () => {
   useEffect(() => {
     const fetchTopCollectors = async () => {
       setLoading(true)
-      const { leaderboardData, totalCreatorFees, totalZoraFees } =
-        await getProtocolRewardsLeaderboard(numberOfDays)
+      const { leaderboardData, totalCreatorFees, totalZoraFees } = await getLeaderboard(
+        numberOfDays,
+      )
+
       const tableData = leaderboardData.map((item: any) => ({
         walletAddress: item.creator,
         nftsOwned: formatEther(item.totalCreatorReward),
