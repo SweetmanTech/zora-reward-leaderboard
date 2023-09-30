@@ -6,7 +6,6 @@ import { getChainBreakdowns } from "./chainBreakdowns"
 import ChainRow from "./ChainRow"
 
 const LeaderboardRow = ({ row, rank }) => {
-  console.log("SWEETS ROW", row)
   const {
     walletAddress: address,
     nftsOwned: numberOwned,

@@ -11,7 +11,6 @@ const useEthPrice = () => {
     }
     init()
   }, [])
-  console.log("SWEETS ethPrice", ethPrice)
 
   return { ethPrice }
 }
