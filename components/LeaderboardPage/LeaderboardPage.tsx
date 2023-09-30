@@ -1,9 +1,9 @@
+import { formatEther } from "ethers/lib/utils"
 import Layout from "../Layout"
 import TimeFilter from "./TimeFilter"
 import LeaderboardTable from "./LeaderboardTable"
 import useLeaderboard from "../../hooks/useLeaderboard"
 import LoadingModal from "../LoadingModal"
-import { formatEther, parseEther } from "ethers/lib/utils"
 
 const LeaderboardPage = () => {
   const { collectors, numberOfDays, setNumberOfDays, loading, zoraFees, creatorFees } =
