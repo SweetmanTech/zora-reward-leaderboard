@@ -36,7 +36,7 @@ const LeaderboardPage = () => {
             Currently Tracking: <br /> Zora Protocol Rewards
           </div>
         </div>
-        <div className="flex justify-around">
+        <div className="flex flex-col md:flex-row justify-around items-center">
           <Earnings label="Creators are earning" fees={creatorFees} ethPrice={ethPrice} />
           <TimeFilter setNumberOfDays={setNumberOfDays} numberOfDays={numberOfDays} />
           <Earnings label="Zora is earning" fees={zoraFees} ethPrice={ethPrice} />
