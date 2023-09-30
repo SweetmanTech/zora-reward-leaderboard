@@ -9,12 +9,23 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
     { id: zora.id, key: "zoraReward" },
   ]
 
-  let allData = []
+  const fetchPromises = chains.map((chain) =>
+    getRewardsDepositEvents(chain.id, numberOfDays).then((data) =>
+      data.map((item) => ({ ...item, rewardType: chain.key })),
+    ),
+  )
 
-  for (const chain of chains) {
-    const data = await getRewardsDepositEvents(chain.id, numberOfDays)
-    allData = allData.concat(data.map((item) => ({ ...item, rewardType: chain.key })))
-  }
+  const allData = (await Promise.all(fetchPromises)).flat()
+
+  const defaultRewards = chains.reduce(
+    (acc, chain) => {
+      acc[chain.key] = BigInt(0)
+      return acc
+    },
+    { totalCreatorReward: BigInt(0) },
+  )
+  let totalZoraFees = BigInt(0)
+  let totalCreatorFees = BigInt(0)
 
   const groupedData = allData.reduce((acc, curr) => {
     const recipients = [curr.creator, curr.createReferral, curr.firstMinter, curr.mintReferral]
@@ -24,31 +35,29 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
       curr.firstMinterReward,
       curr.mintReferralReward,
     ]
-
+    totalZoraFees += BigInt(curr.zoraReward)
     for (let i = 0; i < recipients.length; i += 1) {
       if (!acc[recipients[i]]) {
-        acc[recipients[i]] = {
-          totalCreatorReward: BigInt(0),
-          baseReward: BigInt(0),
-          optimismReward: BigInt(0),
-          ethereumReward: BigInt(0),
-          zoraReward: BigInt(0),
-        }
+        acc[recipients[i]] = { ...defaultRewards }
       }
       acc[recipients[i]][curr.rewardType] += BigInt(fees[i])
       acc[recipients[i]].totalCreatorReward += BigInt(fees[i])
+      totalCreatorFees += BigInt(fees[i])
     }
 
     return acc
   }, {})
 
-  const results = Object.entries(groupedData)
+  const leaderboardData = Object.entries(groupedData)
     .map(([creator, rewards]: any) => ({
       creator,
-      totalCreatorReward: rewards.totalCreatorReward.toString(),
-      baseReward: rewards.baseReward.toString(),
-      optimismReward: rewards.optimismReward.toString(),
-      ethereumReward: rewards.ethereumReward.toString(),
+      ...chains.reduce(
+        (acc, chain) => {
+          acc[chain.key] = rewards[chain.key].toString()
+          return acc
+        },
+        { totalCreatorReward: rewards.totalCreatorReward.toString() },
+      ),
     }))
     .sort((a, b) => {
       if (BigInt(a.totalCreatorReward) < BigInt(b.totalCreatorReward)) {
@@ -60,8 +69,11 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
       return 0
     })
 
-  console.log("SWEETS RESULTS", results)
-  return results
+  return {
+    leaderboardData,
+    totalZoraFees: totalZoraFees.toString(),
+    totalCreatorFees: totalCreatorFees.toString(),
+  }
 }
 
 export default getProtocolRewardsLeaderboard
