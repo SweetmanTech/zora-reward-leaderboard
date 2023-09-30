@@ -12,7 +12,7 @@ const useLeaderboard = () => {
   useEffect(() => {
     const fetchTopCollectors = async () => {
       setLoading(true)
-      const leaderboardData = await getProtocolRewardsLeaderboard(chain?.id || 1, numberOfDays)
+      const leaderboardData = await getProtocolRewardsLeaderboard(numberOfDays)
       const tableData = leaderboardData.map((item) => ({
         walletAddress: item.creator,
         nftsOwned: formatEther(item.totalCreatorReward),
