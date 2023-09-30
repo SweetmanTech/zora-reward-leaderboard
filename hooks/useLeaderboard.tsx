@@ -16,10 +16,14 @@ const useLeaderboard = () => {
       setLoading(true)
       const { leaderboardData, totalCreatorFees, totalZoraFees } =
         await getProtocolRewardsLeaderboard(numberOfDays)
-      const tableData = leaderboardData.map((item) => ({
+      const tableData = leaderboardData.map((item: any) => ({
         walletAddress: item.creator,
         nftsOwned: formatEther(item.totalCreatorReward),
         twitterHandle: "",
+        zoraReward: formatEther(item.zoraReward),
+        ethereumReward: formatEther(item.ethereumReward),
+        baseReward: formatEther(item.baseReward),
+        optimismReward: formatEther(item.optimismReward),
       }))
 
       setCollectors(tableData)
