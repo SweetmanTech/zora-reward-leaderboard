@@ -1,5 +1,5 @@
 import axios from "axios"
-import { zora } from "@wagmi/core/chains"
+import { mainnet, zora } from "@wagmi/core/chains"
 import getAlchemyBaseUrl from "./getAlchemyBaseUrl"
 
 export const ethGetLogs = async (chainId, contractAddress, topics, numberOfDays = 1) => {
@@ -17,7 +17,8 @@ export const ethGetLogs = async (chainId, contractAddress, topics, numberOfDays 
     params: [],
   })
   const latestBlock = parseInt(latestBlockNumberResponse.data.result, 16)
-  const blocksIn24Hours = Math.floor((24 * 60 * 60) / 13.5)
+  const secondsPerBlock = chainId === mainnet.id ? 13.5 : 2
+  const blocksIn24Hours = Math.floor((24 * 60 * 60) / secondsPerBlock)
   const range = blocksIn24Hours * numberOfDays
   const fromBlock = latestBlock - range
 
