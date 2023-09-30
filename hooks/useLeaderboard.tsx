@@ -6,26 +6,35 @@ import getProtocolRewardsLeaderboard from "../lib/getProtocolRewardsLeaderboard"
 const useLeaderboard = () => {
   const { chain } = useNetwork()
   const [collectors, setCollectors] = useState([])
+  const [creatorFees, setCreatorFees] = useState("")
+  const [zoraFees, setZoraFees] = useState("")
   const [numberOfDays, setNumberOfDays] = useState(1)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchTopCollectors = async () => {
       setLoading(true)
-      const leaderboardData = await getProtocolRewardsLeaderboard(chain?.id || 1, numberOfDays)
-      const tableData = leaderboardData.map((item) => ({
+      const { leaderboardData, totalCreatorFees, totalZoraFees } =
+        await getProtocolRewardsLeaderboard(numberOfDays)
+      const tableData = leaderboardData.map((item: any) => ({
         walletAddress: item.creator,
         nftsOwned: formatEther(item.totalCreatorReward),
         twitterHandle: "",
+        zoraReward: formatEther(item.zoraReward),
+        ethereumReward: formatEther(item.ethereumReward),
+        baseReward: formatEther(item.baseReward),
+        optimismReward: formatEther(item.optimismReward),
       }))
 
       setCollectors(tableData)
+      setCreatorFees(totalCreatorFees)
+      setZoraFees(totalZoraFees)
       setLoading(false)
     }
     fetchTopCollectors()
   }, [chain, numberOfDays])
 
-  return { collectors, numberOfDays, setNumberOfDays, loading }
+  return { collectors, numberOfDays, setNumberOfDays, loading, creatorFees, zoraFees }
 }
 
 export default useLeaderboard

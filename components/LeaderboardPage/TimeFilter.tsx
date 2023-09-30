@@ -1,4 +1,3 @@
-import { zora } from "@wagmi/core/chains"
 import { useEffect } from "react"
 import { useNetwork } from "wagmi"
 
@@ -11,7 +10,7 @@ const TimeFilter = ({ numberOfDays, setNumberOfDays }) => {
   }, [chain])
 
   return (
-    <div className="w-full flex justify-center mb-4">
+    <div className="flex justify-center mb-4">
       <button
         type="button"
         className={`mx-2 p-2 rounded rounded-lg ${numberOfDays === 1 ? "bg-gray-300" : ""}`}
@@ -33,15 +32,6 @@ const TimeFilter = ({ numberOfDays, setNumberOfDays }) => {
       >
         30D
       </button>
-      {chain?.id !== zora.id && (
-        <button
-          type="button"
-          className={`mx-2 p-2 rounded-lg ${numberOfDays === 90 ? "bg-gray-300" : ""}`}
-          onClick={() => setNumberOfDays(90)}
-        >
-          90D
-        </button>
-      )}
     </div>
   )
 }
