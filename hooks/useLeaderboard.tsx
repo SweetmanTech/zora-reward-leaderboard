@@ -18,15 +18,17 @@ const useLeaderboard = () => {
         numberOfDays,
       )
 
-      const tableData = leaderboardData.map((item: any) => ({
-        walletAddress: item.creator,
-        nftsOwned: formatEther(item.totalCreatorReward),
-        twitterHandle: "",
-        zoraReward: formatEther(item.zoraReward),
-        ethereumReward: formatEther(item.ethereumReward),
-        baseReward: formatEther(item.baseReward),
-        optimismReward: formatEther(item.optimismReward),
-      }))
+      const tableData = leaderboardData
+        ? leaderboardData.map((item: any) => ({
+            walletAddress: item.creator,
+            nftsOwned: formatEther(item.totalCreatorReward),
+            twitterHandle: "",
+            zoraReward: formatEther(item.zoraReward),
+            ethereumReward: formatEther(item.ethereumReward),
+            baseReward: formatEther(item.baseReward),
+            optimismReward: formatEther(item.optimismReward),
+          }))
+        : []
 
       setCollectors(tableData)
       setCreatorFees(totalCreatorFees)

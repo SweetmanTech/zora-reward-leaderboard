@@ -1,23 +1,12 @@
 import axios from "axios"
-import { mainnet, zora } from "@wagmi/core/chains"
-import getAlchemyBaseUrl from "./getAlchemyBaseUrl"
+import { zora } from "@wagmi/core/chains"
+import ethBlockNumber from "../alchemy/eth_blockNumber"
 
-export const ethGetLogs = async (chainId, contractAddress, topics, numberOfDays = 1) => {
-  let endpoint
-  if (chainId === zora.id) {
-    endpoint = "https://rpc.zora.energy"
-  } else {
-    endpoint = `${getAlchemyBaseUrl(chainId)}v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
-  }
+export const zoraGetLogs = async (contractAddress, topics, numberOfDays = 1) => {
+  const endpoint = "https://rpc.zora.energy"
 
-  const latestBlockNumberResponse = await axios.post(endpoint, {
-    id: 0,
-    jsonrpc: "2.0",
-    method: "eth_blockNumber",
-    params: [],
-  })
-  const latestBlock = parseInt(latestBlockNumberResponse.data.result, 16)
-  const secondsPerBlock = chainId === mainnet.id ? 13.5 : 2
+  const latestBlock = await ethBlockNumber(zora.id)
+  const secondsPerBlock = 2
   const blocksIn24Hours = Math.floor((24 * 60 * 60) / secondsPerBlock)
   const range = blocksIn24Hours * numberOfDays
   const fromBlock = latestBlock - range
