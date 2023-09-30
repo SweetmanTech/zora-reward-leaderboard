@@ -1,7 +1,10 @@
 import { useEffect } from "react"
 import { useNetwork } from "wagmi"
+import LoadingModal from "../LoadingModal"
+import { useLeaderboardProvider } from "../../providers/LeaderboardProvider"
 
-const TimeFilter = ({ numberOfDays, setNumberOfDays }) => {
+const TimeFilter = () => {
+  const { numberOfDays, setNumberOfDays, loading } = useLeaderboardProvider()
   const { chain } = useNetwork()
 
   useEffect(() => {
@@ -32,6 +35,11 @@ const TimeFilter = ({ numberOfDays, setNumberOfDays }) => {
       >
         30D
       </button>
+      {loading && (
+        <LoadingModal
+          description={`getting onchain data for\n previous ${numberOfDays} day(s)...`}
+        />
+      )}
     </div>
   )
 }
