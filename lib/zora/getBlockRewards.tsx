@@ -1,8 +1,8 @@
 import { zora } from "@wagmi/core/chains"
+import { utils } from "ethers"
 import { ethGetLogsBatch } from "../alchemy/ethGetLogsBatch"
 import { zoraGetLogs } from "./zora_getLogs"
 import { PROTOCOL_REWARDS_ADDRESS, REWARD_DEPOSIT_EVENT_SIGNATURE } from "../consts"
-import { utils } from "ethers"
 import decodeBatchRewardLogs from "./decodeBatchRewardLogs"
 
 const getBlockRewards = async (chainId, fromBlock, toBlock) => {

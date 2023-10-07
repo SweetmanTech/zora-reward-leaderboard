@@ -1,6 +1,5 @@
 import { utils } from "ethers"
 import { mainnet, zora } from "@wagmi/core/chains"
-import getCleanedEthereumAddress from "./getCleanedEthereumAddress"
 import { ethGetLogsBatch } from "./alchemy/ethGetLogsBatch"
 import ethBlockNumber from "./alchemy/eth_blockNumber"
 import { zoraGetLogs } from "./zora/zora_getLogs"
