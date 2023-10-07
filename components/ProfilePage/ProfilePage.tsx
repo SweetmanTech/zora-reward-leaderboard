@@ -1,24 +1,10 @@
-import axios from "axios"
-import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useProfileProvider } from "../../providers/ProfileProvider"
 
 const ProfilePage = () => {
-  const { query } = useRouter()
-  const { profile } = query
+  const { profile } = useProfileProvider()
+  console.log("SWEETS PROFILE", profile)
 
-  useEffect(() => {
-    const init = async () => {
-      const { data } = await axios.get("/api/get/profile", {
-        params: {
-          addressOrEns: profile,
-        },
-      })
-      console.log("SWEETS RESPONSE", data)
-    }
-    init()
-  })
-
-  return <div className="text-white">hello world</div>
+  return <div className="text-white">hello {profile}</div>
 }
 
 export default ProfilePage
