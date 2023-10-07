@@ -25,7 +25,7 @@ const getBlockRewards = async (chainId, fromBlock, toBlock) => {
     chainId === zora.id
       ? await zoraGetLogs(PROTOCOL_REWARDS_ADDRESS, topics, toBlock, fromBlock)
       : await ethGetLogsBatch(chainId, requests)
-  const parsedLogs = decodeBatchRewardLogs(batchedLogs)
+  const parsedLogs = decodeBatchRewardLogs(batchedLogs, chainId)
   return parsedLogs
 }
 

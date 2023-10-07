@@ -31,7 +31,7 @@ export const getRewardsDepositEvents = async (chainId, numberOfDays) => {
       ? await zoraGetLogs(PROTOCOL_REWARDS_ADDRESS, topics, latestBlock, fromBlock)
       : await ethGetLogsBatch(chainId, requests)
 
-  const parsedLogs = decodeBatchRewardLogs(batchedLogs)
+  const parsedLogs = decodeBatchRewardLogs(batchedLogs, chainId)
 
   return parsedLogs.reverse()
 }

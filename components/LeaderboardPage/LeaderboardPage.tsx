@@ -5,15 +5,14 @@ import LeaderboardTable from "./LeaderboardTable"
 import Earnings from "./Earnings"
 import { useLeaderboardProvider } from "../../providers/LeaderboardProvider"
 import { Button } from "../../shared/Button"
-import getBlockRewards from "../../lib/zora/getBlockRewards"
+import fetchRewards from "../../lib/firebase/fetchRewards"
 
 const LeaderboardPage = () => {
   const { zoraFees, creatorFees } = useLeaderboardProvider()
 
   const handleClick = async () => {
     console.log("SWEETS LOOKUP FIRST EVENT ON ZORA NETWORK")
-    const response = await getBlockRewards(zora.id, 2425356, 2425357)
-    console.log("SWEETS response", response)
+    await fetchRewards(zora.id)
   }
 
   return (

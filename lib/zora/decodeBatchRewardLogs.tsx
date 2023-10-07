@@ -1,7 +1,7 @@
 import { defaultAbiCoder } from "ethers/lib/utils"
 import getCleanedEthereumAddress from "../getCleanedEthereumAddress"
 
-const decodeBatchRewardLogs = (batchedLogs) => {
+const decodeBatchRewardLogs = (batchedLogs, chainId) => {
   const parsedLogs = batchedLogs.map((log, index) => {
     try {
       const decodedData = defaultAbiCoder.decode(
@@ -18,6 +18,8 @@ const decodeBatchRewardLogs = (batchedLogs) => {
         log?.data,
       )
 
+      console.log("SWEETS log", log)
+
       return {
         creator: getCleanedEthereumAddress(log.topics[1].toLowerCase()),
         createReferral: getCleanedEthereumAddress(log.topics[2].toLowerCase()),
@@ -32,6 +34,8 @@ const decodeBatchRewardLogs = (batchedLogs) => {
         zoraReward: decodedData[7].toString(),
         transactionHash: log.transactionHash,
         blockNumber: log.blockNumber,
+        chainId,
+        logIndex: log.logIndex,
       }
     } catch (error) {
       // eslint-disable-next-line no-console
