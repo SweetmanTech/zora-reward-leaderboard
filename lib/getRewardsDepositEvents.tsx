@@ -4,13 +4,11 @@ import getCleanedEthereumAddress from "./getCleanedEthereumAddress"
 import { ethGetLogsBatch } from "./alchemy/ethGetLogsBatch"
 import ethBlockNumber from "./alchemy/eth_blockNumber"
 import { zoraGetLogs } from "./zora/zora_getLogs"
-
-const PROTOCOL_REWARDS_ADDRESS = "0x7777777F279eba3d3Ad8F4E708545291A6fDBA8B"
+import { PROTOCOL_REWARDS_ADDRESS, REWARD_DEPOSIT_EVENT_SIGNATURE } from "./consts"
+import decodeBatchRewardLogs from "./zora/decodeBatchRewardLogs"
 
 export const getRewardsDepositEvents = async (chainId, numberOfDays) => {
-  const eventSignature =
-    "RewardsDeposit(address,address,address,address,address,address,uint256,uint256,uint256,uint256,uint256)"
-  const topics = [utils.id(eventSignature)]
+  const topics = [utils.id(REWARD_DEPOSIT_EVENT_SIGNATURE)]
 
   const latestBlock = await ethBlockNumber(chainId)
   const secondsPerBlock = chainId === mainnet.id ? 13.5 : 2
@@ -34,41 +32,7 @@ export const getRewardsDepositEvents = async (chainId, numberOfDays) => {
       ? await zoraGetLogs(PROTOCOL_REWARDS_ADDRESS, topics, latestBlock, fromBlock)
       : await ethGetLogsBatch(chainId, requests)
 
-  const parsedLogs = batchedLogs.map((log, index) => {
-    try {
-      const decodedData = utils.defaultAbiCoder.decode(
-        [
-          "address", // firstMinter
-          "address", // zora
-          "address", // from
-          "uint256", // creatorReward
-          "uint256", // createReferralReward
-          "uint256", // mintReferralReward
-          "uint256", // firstMinterReward
-          "uint256", // zoraReward
-        ],
-        log?.data,
-      )
-
-      return {
-        creator: getCleanedEthereumAddress(log.topics[1].toLowerCase()),
-        createReferral: getCleanedEthereumAddress(log.topics[2].toLowerCase()),
-        mintReferral: getCleanedEthereumAddress(log.topics[3].toLowerCase()),
-        firstMinter: getCleanedEthereumAddress(decodedData[0]),
-        zora: decodedData[1],
-        from: decodedData[2],
-        creatorReward: decodedData[3].toString(),
-        createReferralReward: decodedData[4].toString(),
-        mintReferralReward: decodedData[5].toString(),
-        firstMinterReward: decodedData[6].toString(),
-        zoraReward: decodedData[7].toString(),
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(`Error parsing log at index ${index}:`, log)
-      throw error
-    }
-  })
+  const parsedLogs = decodeBatchRewardLogs(batchedLogs)
 
   return parsedLogs.reverse()
 }

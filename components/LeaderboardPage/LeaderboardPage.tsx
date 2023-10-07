@@ -1,11 +1,20 @@
+import { zora } from "@wagmi/core/chains"
 import Layout from "../Layout"
 import TimeFilter from "./TimeFilter"
 import LeaderboardTable from "./LeaderboardTable"
 import Earnings from "./Earnings"
 import { useLeaderboardProvider } from "../../providers/LeaderboardProvider"
+import { Button } from "../../shared/Button"
+import getBlockRewards from "../../lib/zora/getBlockRewards"
 
 const LeaderboardPage = () => {
   const { zoraFees, creatorFees } = useLeaderboardProvider()
+
+  const handleClick = async () => {
+    console.log("SWEETS LOOKUP FIRST EVENT ON ZORA NETWORK")
+    const response = await getBlockRewards(zora.id, 2425356, 2425357)
+    console.log("SWEETS response", response)
+  }
 
   return (
     <Layout type="contained">
@@ -20,6 +29,9 @@ const LeaderboardPage = () => {
         >
           Leaderboard
         </div>
+        <Button id="api" onClick={handleClick}>
+          Update Block Rewards
+        </Button>
         <div className="w-full flex justify-center pb-4">
           <div
             className="font-hanson 
