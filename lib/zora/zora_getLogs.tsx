@@ -1,23 +1,21 @@
 import axios from "axios"
 
-export const zoraGetLogs = async (contractAddress, topics, latestBlock, fromBlock) => {
+export const zoraGetLogs = async (contractAddress, requests) => {
   const endpoint = "https://rpc.zora.energy"
 
-  const blockRange = 100_000
-  const requests = []
-  for (let startBlock = fromBlock; startBlock <= latestBlock; startBlock += blockRange) {
-    const endBlock = Math.min(startBlock + blockRange - 1, latestBlock)
-    requests.push(
+  const apiRequests = []
+  for (let i = 0; i < requests.length; i += 1) {
+    apiRequests.push(
       axios.post(endpoint, {
         id: 0,
         jsonrpc: "2.0",
         method: "eth_getLogs",
         params: [
           {
-            fromBlock: `0x${startBlock.toString(16)}`,
-            toBlock: `0x${endBlock.toString(16)}`,
+            fromBlock: requests[i].fromBlock,
+            toBlock: requests[i].toBlock,
             address: contractAddress,
-            topics,
+            topics: requests[i].topic,
           },
         ],
       }),
@@ -25,7 +23,7 @@ export const zoraGetLogs = async (contractAddress, topics, latestBlock, fromBloc
   }
 
   try {
-    const responses = await Promise.all(requests)
+    const responses = await Promise.all(apiRequests)
     const logs = responses.flatMap((response) => response.data.result).filter(Boolean)
     return logs
   } catch (err) {
