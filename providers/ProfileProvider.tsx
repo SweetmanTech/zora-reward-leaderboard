@@ -1,14 +1,12 @@
 import { createContext, useContext, useMemo } from "react"
-import useEthPrice from "../hooks/useEthPrice"
 import useProfile from "../hooks/useProfile"
 
 const ProfileContext = createContext(null)
 
 const ProfileProvider = ({ children }) => {
   const profile = useProfile()
-  const { ethPrice } = useEthPrice() as any
 
-  const value = useMemo(() => ({ ...profile, ethPrice }), [profile, ethPrice])
+  const value = useMemo(() => ({ ...profile }), [profile])
 
   return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
 }
