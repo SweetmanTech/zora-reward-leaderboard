@@ -1,33 +1,16 @@
 import { zora } from "@wagmi/core/chains"
-import { utils } from "ethers"
 import { ethGetLogsBatch } from "../alchemy/ethGetLogsBatch"
 import { zoraGetLogs } from "./zora_getLogs"
-import { PROTOCOL_REWARDS_ADDRESS, REWARD_DEPOSIT_EVENT_SIGNATURE } from "../consts"
+import { PROTOCOL_REWARDS_ADDRESS } from "../consts"
 import decodeBatchRewardLogs from "./decodeBatchRewardLogs"
 import ethBlockNumber from "../alchemy/eth_blockNumber"
+import { getCreatorRewardTopics } from "./topics"
+import updateBatchEvents from "../firebase/updateBatchEvents"
 
 const getCreatorRewards = async (chainId, address) => {
   console.log("SWEETS getCreatorRewards")
   console.log("SWEETS add1ress", address)
-  const creatorTopic = [
-    utils.id(REWARD_DEPOSIT_EVENT_SIGNATURE),
-    utils.hexZeroPad(address, 32),
-    null,
-    null,
-  ]
-  const createReferralTopic = [
-    utils.id(REWARD_DEPOSIT_EVENT_SIGNATURE),
-    null,
-    utils.hexZeroPad(address, 32),
-    null,
-  ]
-  const mintReferralTopic = [
-    utils.id(REWARD_DEPOSIT_EVENT_SIGNATURE),
-    null,
-    null,
-    utils.hexZeroPad(address, 32),
-  ]
-  const topics = [creatorTopic, createReferralTopic, mintReferralTopic]
+  const topics = getCreatorRewardTopics(address)
 
   const startBlock = 0
   const currentBlock = await ethBlockNumber(chainId)
@@ -53,8 +36,8 @@ const getCreatorRewards = async (chainId, address) => {
       ? await zoraGetLogs(PROTOCOL_REWARDS_ADDRESS, requests)
       : await ethGetLogsBatch(chainId, requests)
   const parsedLogs = decodeBatchRewardLogs(batchedLogs, chainId)
-  console.log("SWEETS parsedLogs", parsedLogs)
-
+  console.log("SWEETS BATCH SAVE LOGS TO FIREBASE", parsedLogs)
+  await updateBatchEvents(parsedLogs)
   return parsedLogs
 }
 

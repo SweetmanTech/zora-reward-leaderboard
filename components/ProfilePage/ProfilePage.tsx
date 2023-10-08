@@ -1,8 +1,8 @@
 import { useProfileProvider } from "../../providers/ProfileProvider"
 
 const ProfilePage = () => {
-  const { profile, data } = useProfileProvider()
-  console.log("SWEETS PROFILE", profile)
+  const { profile, data, events } = useProfileProvider()
+  console.log("SWEETS PROFILE", events)
   const keys = data && Object.keys(data)
 
   return (
@@ -12,6 +12,18 @@ const ProfilePage = () => {
         keys.map((key) => (
           <div key={key}>
             {key}: {data[key]}
+          </div>
+        ))}
+      {events &&
+        events.map((e) => (
+          <div key={`${e.transactionHash}-${e.logIndex}`}>
+            <ol>
+              {Object.keys(e).map((attribute, index) => (
+                <li key={Object.keys(e)[index]}>
+                  {Object.keys(e)[index]}:{e[Object.keys(e)[index]]}
+                </li>
+              ))}
+            </ol>
           </div>
         ))}
     </div>
