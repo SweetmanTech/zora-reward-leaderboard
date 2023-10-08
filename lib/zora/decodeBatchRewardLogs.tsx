@@ -18,8 +18,6 @@ const decodeBatchRewardLogs = (batchedLogs, chainId) => {
         log?.data,
       )
 
-      console.log("SWEETS log", log)
-
       return {
         creator: getCleanedEthereumAddress(log.topics[1].toLowerCase()),
         createReferral: getCleanedEthereumAddress(log.topics[2].toLowerCase()),

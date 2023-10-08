@@ -2,7 +2,6 @@ import { useProfileProvider } from "../../providers/ProfileProvider"
 
 const ProfilePage = () => {
   const { profile, data, events } = useProfileProvider()
-  console.log("SWEETS PROFILE", events)
   const keys = data && Object.keys(data)
 
   return (

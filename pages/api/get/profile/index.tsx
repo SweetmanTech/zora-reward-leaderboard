@@ -8,10 +8,7 @@ const getProfile = async (addressOrEns) => {
     // IF LENS, convert to 0x
     const address = addressOrEns.toLowerCase()
     // LOOKUP USER IN FIREBASE
-    console.log("SWEETS getCreator", address)
-
     const creatorResp = await getCreator(address)
-    console.log("SWEETS CREATOR RESPONSE", creatorResp)
     response = creatorResp
   } catch (ex) {
     response = { data: false }

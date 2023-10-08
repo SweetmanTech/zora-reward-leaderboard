@@ -11,7 +11,6 @@ const LeaderboardPage = () => {
   const { zoraFees, creatorFees } = useLeaderboardProvider()
 
   const handleClick = async () => {
-    console.log("SWEETS LOOKUP FIRST EVENT ON ZORA NETWORK")
     await fetchRewards(zora.id)
   }
 
