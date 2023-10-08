@@ -1,27 +1,11 @@
-import { mainnet } from "wagmi"
 import getCreator from "../../../../lib/firebase/getCreator"
-import getDefaultProvider from "../../../../lib/getDefaultProvider"
-import { polygon } from "@wagmi/core/dist/chains"
-import getAddressByHandle from "../../../../lib/lens/getAddressByHandle"
+import getAddressForHandle from "../../../../lib/getAddressForHandle"
 
 const getProfile = async (addressOrEns) => {
   let response
   try {
-    let address = addressOrEns.toLowerCase()
-    const isEns = addressOrEns.includes(".eth")
-    const isLens = addressOrEns.includes(".lens")
-    // IF ENS, convert to 0x
-    if (isEns) {
-      const provider = getDefaultProvider(mainnet.id)
-      address = (await provider.resolveName(addressOrEns)).toLowerCase()
-    } else if (isLens) {
-      // IF LENS, convert to 0x
-      address = (await getAddressByHandle(addressOrEns)).toLowerCase()
-    }
-
-    // LOOKUP USER IN FIREBASE
+    const address = await getAddressForHandle(addressOrEns)
     const creatorResp = await getCreator(address)
-
     response = creatorResp
   } catch (ex) {
     response = { data: false }

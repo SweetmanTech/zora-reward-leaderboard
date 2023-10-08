@@ -25,11 +25,17 @@ const getCreatorRewards = async (chainId, address) => {
       })
     }
   }
+  console.log("SWEETS requests", requests)
+  console.log("SWEETS chainId", chainId)
 
   const batchedLogs =
     chainId === zora.id ? await zoraGetLogs(requests) : await ethGetLogsBatch(chainId, requests)
   const parsedLogs = decodeBatchRewardLogs(batchedLogs, chainId)
-  await updateBatchEvents(parsedLogs)
+  // try {
+  //   await updateBatchEvents(parsedLogs)
+  // } catch (err) {
+  //   console.error(err)
+  // }
   return parsedLogs
 }
 
