@@ -19,7 +19,7 @@ const useProfile = () => {
     const init = async () => {
       const { data: profileData } = await getProfile(profile)
       setData(profileData)
-      const response = await getCreatorRewards(chaindId, profile)
+      const response = await getCreatorRewards(zora.id, profile)
       const opResponse = await getCreatorRewards(optimism.id, profile)
       const baseResponse = await getCreatorRewards(base.id, profile)
       const ethResponse = await getCreatorRewards(mainnet.id, profile)
@@ -29,7 +29,7 @@ const useProfile = () => {
     }
     if (!profile || !reload) return
     init()
-  }, [profile])
+  }, [profile, reload])
 
   useEffect(() => {
     const init = async () => {
