@@ -5,7 +5,6 @@ import { PROTOCOL_REWARDS_ADDRESS } from "../consts"
 import decodeBatchRewardLogs from "./decodeBatchRewardLogs"
 import ethBlockNumber from "../alchemy/eth_blockNumber"
 import { getCreatorRewardTopics } from "./topics"
-import updateBatchEvents from "../firebase/updateBatchEvents"
 
 const getCreatorRewards = async (chainId, address) => {
   const topics = getCreatorRewardTopics(address)
@@ -31,11 +30,6 @@ const getCreatorRewards = async (chainId, address) => {
   const batchedLogs =
     chainId === zora.id ? await zoraGetLogs(requests) : await ethGetLogsBatch(chainId, requests)
   const parsedLogs = decodeBatchRewardLogs(batchedLogs, chainId)
-  // try {
-  //   await updateBatchEvents(parsedLogs)
-  // } catch (err) {
-  //   console.error(err)
-  // }
   return parsedLogs
 }
 
