@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const zoraGetLogs = async (contractAddress, requests) => {
+export const zoraGetLogs = async (requests) => {
   const endpoint = "https://rpc.zora.energy"
 
   const apiRequests = []
@@ -14,7 +14,7 @@ export const zoraGetLogs = async (contractAddress, requests) => {
           {
             fromBlock: requests[i].fromBlock,
             toBlock: requests[i].toBlock,
-            address: contractAddress,
+            address: requests[i].address,
             topics: requests[i].topic,
           },
         ],
@@ -25,6 +25,7 @@ export const zoraGetLogs = async (contractAddress, requests) => {
   try {
     const responses = await Promise.all(apiRequests)
     const logs = responses.flatMap((response) => response.data.result).filter(Boolean)
+
     return logs
   } catch (err) {
     // eslint-disable-next-line no-console

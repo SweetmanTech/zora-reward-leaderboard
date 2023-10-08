@@ -4,7 +4,7 @@ const getProfile = async (addressOrEns) => {
   let response
   try {
     // IF ENS, convert to 0x
-
+    console.log("SWEETS addressOrEns", addressOrEns)
     // IF LENS, convert to 0x
     const address = addressOrEns.toLowerCase()
     // LOOKUP USER IN FIREBASE

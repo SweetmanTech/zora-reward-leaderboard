@@ -11,7 +11,7 @@ const getCreatorRewards = async (chainId, address) => {
   const topics = getCreatorRewardTopics(address)
   const startBlock = 0
   const currentBlock = await ethBlockNumber(chainId)
-  const blockRange = 100_000
+  const blockRange = 10_000_000
   const requests = []
 
   for (let j = 0; j < topics.length; j += 1) {
@@ -27,11 +27,8 @@ const getCreatorRewards = async (chainId, address) => {
   }
 
   const batchedLogs =
-    chainId === zora.id
-      ? await zoraGetLogs(PROTOCOL_REWARDS_ADDRESS, requests)
-      : await ethGetLogsBatch(chainId, requests)
+    chainId === zora.id ? await zoraGetLogs(requests) : await ethGetLogsBatch(chainId, requests)
   const parsedLogs = decodeBatchRewardLogs(batchedLogs, chainId)
-
   await updateBatchEvents(parsedLogs)
   return parsedLogs
 }

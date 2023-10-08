@@ -2,7 +2,9 @@ import { defaultAbiCoder } from "ethers/lib/utils"
 import getCleanedEthereumAddress from "../getCleanedEthereumAddress"
 
 const decodeBatchRewardLogs = (batchedLogs, chainId) => {
-  const parsedLogs = batchedLogs.map((log, index) => {
+  const filteredArr = batchedLogs.filter((value) => value !== undefined)
+
+  const parsedLogs = filteredArr.map((log, index) => {
     try {
       const decodedData = defaultAbiCoder.decode(
         [
@@ -41,6 +43,7 @@ const decodeBatchRewardLogs = (batchedLogs, chainId) => {
       throw error
     }
   })
+
   return parsedLogs
 }
 

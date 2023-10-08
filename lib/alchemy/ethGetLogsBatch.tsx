@@ -12,8 +12,8 @@ export const ethGetLogsBatch = async (chainId, requests) => {
       {
         fromBlock: req.fromBlock || "0x1",
         toBlock: req.toBlock || "latest",
-        address: req.contractAddress,
-        topics: req.topics,
+        address: req.address,
+        topics: req.topic,
       },
     ],
   }))
