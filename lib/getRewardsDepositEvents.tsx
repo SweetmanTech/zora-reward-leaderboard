@@ -1,17 +1,17 @@
 import { utils } from "ethers"
-import { mainnet, zora } from "@wagmi/core/chains"
+import { zora } from "@wagmi/core/chains"
 import { ethGetLogsBatch } from "./alchemy/ethGetLogsBatch"
 import ethBlockNumber from "./alchemy/eth_blockNumber"
 import { zoraGetLogs } from "./zora/zora_getLogs"
 import { PROTOCOL_REWARDS_ADDRESS, REWARD_DEPOSIT_EVENT_SIGNATURE } from "./consts"
 import decodeBatchRewardLogs from "./zora/decodeBatchRewardLogs"
+import getBlocksPerDay from "./getBlocksPerDay"
 
 export const getRewardsDepositEvents = async (chainId, numberOfDays) => {
   const topics = [utils.id(REWARD_DEPOSIT_EVENT_SIGNATURE)]
 
   const latestBlock = await ethBlockNumber(chainId)
-  const secondsPerBlock = chainId === mainnet.id ? 13.5 : 2
-  const blocksIn24Hours = Math.floor((24 * 60 * 60) / secondsPerBlock)
+  const blocksIn24Hours = getBlocksPerDay(chainId)
   const range = blocksIn24Hours * numberOfDays
   const fromBlock = latestBlock - range
   const blockRange = 100_000

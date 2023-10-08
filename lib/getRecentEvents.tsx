@@ -1,9 +1,8 @@
-const getRecentEvents = (events, chainId, numberOfDays) => {
-  // Determine time per block based on the chainId
-  const secondsPerBlock = chainId === 1 ? 13.5 : 2
+import getBlocksPerDay from "./getBlocksPerDay"
 
+const getRecentEvents = (events, chainId, numberOfDays) => {
   // Calculate the number of blocks for the given number of days
-  const blocksPerDay = Math.round((24 * 60 * 60) / secondsPerBlock)
+  const blocksPerDay = getBlocksPerDay(chainId)
   const totalBlocks = numberOfDays * blocksPerDay
 
   // Sort events based on blockNumber in descending order
