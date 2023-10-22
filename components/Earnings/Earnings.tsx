@@ -5,7 +5,7 @@ import { useEthPriceProvider } from "../../providers/EthPriceProvider"
 
 const Earnings = ({ label, fees }) => {
   const { ethPrice } = useEthPriceProvider()
-  const [showUsd, setShowUsd] = useState(false)
+  const [showUsd, setShowUsd] = useState(true)
   const creator = fees && parseFloat(formatEther(fees)) * (showUsd ? ethPrice : 1)
 
   return (

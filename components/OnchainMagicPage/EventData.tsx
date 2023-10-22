@@ -26,8 +26,8 @@ const EventData = ({ name, data, icon = "" }) => {
   const creatorCount = uniqueCreators.size
 
   return (
-    <div className="flex justify-around items-center">
-      <InfoBox label={`Number of ${name} Events:`} value={data.length} />
+    <div className="flex-col md:flex justify-around items-center">
+      <InfoBox label={`Number of ${name} Payout Events:`} value={data.length} />
 
       {icon ? (
         <div>
