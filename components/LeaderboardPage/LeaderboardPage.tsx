@@ -1,8 +1,8 @@
 import Layout from "../Layout"
 import TimeFilter from "./TimeFilter"
 import LeaderboardTable from "./LeaderboardTable"
-import Earnings from "./Earnings"
 import { useLeaderboardProvider } from "../../providers/LeaderboardProvider"
+import Earnings from "../Earnings"
 
 const LeaderboardPage = () => {
   const { zoraFees, creatorFees } = useLeaderboardProvider()
