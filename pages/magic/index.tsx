@@ -1,10 +1,10 @@
 import OnchainMagicPage from "../../components/OnchainMagicPage"
 import OnchainMagicProvider from "../../providers/OnchainMagicProvider"
 
-const Magic = () => (
+const MagicPage = () => (
   <OnchainMagicProvider>
     <OnchainMagicPage />
   </OnchainMagicProvider>
 )
 
-export default Magic
+export default MagicPage
