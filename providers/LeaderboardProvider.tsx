@@ -1,14 +1,12 @@
 import { createContext, useContext, useMemo } from "react"
 import useLeaderboard from "../hooks/useLeaderboard"
-import useEthPrice from "../hooks/useEthPrice"
 
 const LeaderboardContext = createContext(null)
 
 const LeaderboardProvider = ({ children }) => {
   const leaderboard = useLeaderboard()
-  const { ethPrice } = useEthPrice() as any
 
-  const value = useMemo(() => ({ ...leaderboard, ethPrice }), [leaderboard, ethPrice])
+  const value = useMemo(() => ({ ...leaderboard }), [leaderboard])
 
   return <LeaderboardContext.Provider value={value}>{children}</LeaderboardContext.Provider>
 }

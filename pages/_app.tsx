@@ -20,6 +20,7 @@ import * as React from "react"
 import { Analytics } from "@vercel/analytics/react"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
+import EthPriceProvider from "../providers/EthPriceProvider"
 
 const myChains = [mainnet, base, zora, optimism, goerli, baseGoerli, zoraTestnet, optimismGoerli]
 const { chains, publicClient, webSocketPublicClient } = configureChains(myChains, [
@@ -45,9 +46,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider modalSize="compact" chains={chains}>
-        <Component {...pageProps} />
-        <ToastContainer />
-        <Analytics />
+        <EthPriceProvider>
+          <Component {...pageProps} />
+          <ToastContainer />
+          <Analytics />
+        </EthPriceProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   )
