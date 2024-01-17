@@ -9,7 +9,7 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
     { id: zora.id, key: "zoraReward" },
   ]
 
-  const response = await axios.get("http://localhost:3000/api/get/indexedData", {
+  const response = await axios.get("/api/get/indexedData", {
     params: { days: numberOfDays },
   })
   const allData = response.data.map((item) => ({
