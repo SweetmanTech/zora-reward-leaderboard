@@ -9,9 +9,12 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
     { id: zora.id, key: "zoraReward" },
   ]
 
-  const response = await axios.get("/api/get/indexedData", {
-    params: { days: numberOfDays },
-  })
+  const response = await axios.get(
+    "https://zorarewards-git-sameer-useindexer-sweetmantech.vercel.app//api/get/indexedData",
+    {
+      params: { days: numberOfDays },
+    },
+  )
   const allData = response.data.map((item) => ({
     ...item,
     rewardType: `${item.chain}Reward`,
