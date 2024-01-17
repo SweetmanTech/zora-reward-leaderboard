@@ -5,11 +5,18 @@ const getIndexedData = async (timestamp: number) => {
     query: `query($timestamp: BigInt!) {
                   rewardsDeposits(first: 1000, orderBy: "timestamp", orderDirection: "asc", where: {timestamp_gt: $timestamp}) {
                       id
+                      creator
+                      createReferral
                       mintReferral
-                      mintReferralReward
-                      timestamp
+                      firstMinter
                       zora
+                      creatorReward
+                      createReferralReward
+                      firstMinterReward
+                      mintReferralReward
                       zoraReward
+                      timestamp
+                      chain
                   }
               }`,
     variables: {

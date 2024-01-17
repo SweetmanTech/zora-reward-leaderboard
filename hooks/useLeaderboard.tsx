@@ -26,7 +26,7 @@ const useLeaderboard = () => {
             nftsOwned: formatEther(item.totalCreatorReward),
             twitterHandle: "",
             zoraReward: formatEther(item.zoraReward),
-            ethereumReward: formatEther(item.ethereumReward),
+            ethereumReward: formatEther(item.mainnetReward),
             baseReward: formatEther(item.baseReward),
             optimismReward: formatEther(item.optimismReward),
           }))

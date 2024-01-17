@@ -1,21 +1,21 @@
 import { base, mainnet, optimism, zora } from "@wagmi/core/chains"
-import { getRewardsDepositEvents } from "./getRewardsDepositEvents"
+import axios from "axios"
 
 const getProtocolRewardsLeaderboard = async (numberOfDays) => {
   const chains = [
-    { id: mainnet.id, key: "ethereumReward" },
+    { id: mainnet.id, key: "mainnetReward" },
     { id: optimism.id, key: "optimismReward" },
     { id: base.id, key: "baseReward" },
     { id: zora.id, key: "zoraReward" },
   ]
 
-  const fetchPromises = chains.map((chain) =>
-    getRewardsDepositEvents(chain.id, numberOfDays).then((data) =>
-      data.map((item) => ({ ...item, rewardType: chain.key })),
-    ),
-  )
-
-  const allData = (await Promise.all(fetchPromises)).flat()
+  const response = await axios.get("http://localhost:3000/api/get/indexedData", {
+    params: { days: numberOfDays },
+  })
+  const allData = response.data.map((item) => ({
+    ...item,
+    rewardType: `${item.chain}Reward`,
+  }))
 
   const defaultRewards = chains.reduce(
     (acc, chain) => {
@@ -24,6 +24,7 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
     },
     { totalCreatorReward: BigInt(0) },
   )
+
   let totalZoraFees = BigInt(0)
   let totalCreatorFees = BigInt(0)
 
@@ -47,7 +48,6 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
 
     return acc
   }, {})
-
   const leaderboardData = Object.entries(groupedData)
     .map(([creator, rewards]: any) => ({
       creator,
