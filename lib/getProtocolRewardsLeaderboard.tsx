@@ -1,5 +1,5 @@
 import { base, mainnet, optimism, zora } from "@wagmi/core/chains"
-import axios from "axios"
+import getAllIndexedData from "./getIndexedData"
 
 const getProtocolRewardsLeaderboard = async (numberOfDays) => {
   const chains = [
@@ -9,10 +9,8 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
     { id: zora.id, key: "zoraReward" },
   ]
 
-  const response = await axios.get("/api/get/indexedData", {
-    params: { days: numberOfDays },
-  })
-  const allData = response.data.map((item) => ({
+  const response = await getAllIndexedData(numberOfDays)
+  const allData = response.map((item) => ({
     ...item,
     rewardType: `${item.chain}Reward`,
   }))
