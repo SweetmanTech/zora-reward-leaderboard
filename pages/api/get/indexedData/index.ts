@@ -24,14 +24,13 @@ const getIndexedData = async (timestamp: number) => {
     body: JSON.stringify(graphQLQuery),
   }
   const results = []
-  const response = await fetch(process.env.INDEXER_URL, options)
+  const response = await fetch("https://ponderer.quickindexer.xyz", options)
 
   const data = await response.json()
   const rewards: Array<any> = data?.data?.rewardsDeposits
   results.push(...rewards)
   return results
 }
-
 class IndexedData {
   @Get()
   async index(@Query("days") days: number) {
@@ -47,6 +46,7 @@ class IndexedData {
       hasMoreResults = newResults.length > 0
       results.push(...newResults)
     }
+
     return results
   }
 }
