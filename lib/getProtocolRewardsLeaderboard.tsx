@@ -10,7 +10,7 @@ const getProtocolRewardsLeaderboard = async (numberOfDays) => {
   ]
 
   const response = await axios.get(
-    "https://zorarewards-git-sameer-useindexer-sweetmantech.vercel.app//api/get/indexedData",
+    "https://zorarewards-git-sameer-useindexer-sweetmantech.vercel.app/api/get/indexedData",
     {
       params: { days: numberOfDays },
     },
