@@ -1,3 +1,14 @@
+import {
+  FrameContainer,
+  FrameImage,
+  FrameButton,
+  getFrameMessage,
+  useFramesReducer,
+  getPreviousFrame,
+  validateActionSignature,
+  FrameInput,
+} from "frames.js/next/server"
+import { FrameMetadata } from "@coinbase/onchainkit"
 import Layout from "../Layout"
 import TimeFilter from "./TimeFilter"
 import LeaderboardTable from "./LeaderboardTable"
@@ -7,6 +18,9 @@ import Earnings from "../Earnings"
 const LeaderboardPage = () => {
   const { zoraFees, creatorFees } = useLeaderboardProvider()
 
+  const handleClick = () => {
+    console.log("SWEETS CLICKED")
+  }
   return (
     <Layout type="contained">
       <div className="w-full pt-24 mx-auto">
@@ -39,6 +53,21 @@ const LeaderboardPage = () => {
         </div>
         <LeaderboardTable />
       </div>
+      <FrameMetadata
+        buttons={[
+          {
+            label: "Debug with Sameer",
+          },
+        ]}
+        image={{
+          src: "https://zizzamia.xyz/park-3.png",
+          aspectRatio: "1:1",
+        }}
+        input={{
+          text: "Tell me a boat story",
+        }}
+        postUrl="http://localhost:3000/api/frames"
+      />
     </Layout>
   )
 }

@@ -21,14 +21,6 @@ function SeoHead(props: any) {
       <link rel="icon" href={zorbImage} />
       <link rel="apple-touch-icon" href={zorbImage} />
       <meta name="og:image" content="undefined" />
-      <meta property="fc:frame" content="vNext" />
-      <meta name="fc:frame:button:1" content="hello" />
-      <meta name="fc:frame:button:2" content="hi sameer" />
-      <meta
-        name="fc:frame:image"
-        content="https://nftstorage.link/ipfs/bafybeifbkoma4zfff5locnoxhgwpx2eehezcbctws32qsf3nsexmgtfboy"
-      />
-      <meta name="fc:frame:post_url" content="http://localhost:3000" />
     </Head>
   )
 }
