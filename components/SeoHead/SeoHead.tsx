@@ -20,6 +20,12 @@ function SeoHead(props: any) {
       <meta name="twitter:image" content={zorbImage} />
       <link rel="icon" href={zorbImage} />
       <link rel="apple-touch-icon" href={zorbImage} />
+      <meta name="og:image" content="undefined" />
+      <meta name="fc:frame" content="undefined" />
+      <meta name="fc:frame:button:1" content="hello" />
+      <meta name="fc:frame:button:2" content="hi sameer" />
+      <meta name="fc:frame:image" content={zorbImage} />
+      <meta name="fc:frame:post_url" content="http://localhost:3000" />
     </Head>
   )
 }
