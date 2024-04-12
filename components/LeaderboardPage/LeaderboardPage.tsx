@@ -1,13 +1,3 @@
-import {
-  FrameContainer,
-  FrameImage,
-  FrameButton,
-  getFrameMessage,
-  useFramesReducer,
-  getPreviousFrame,
-  validateActionSignature,
-  FrameInput,
-} from "frames.js/next/server"
 import { FrameMetadata } from "@coinbase/onchainkit"
 import Layout from "../Layout"
 import TimeFilter from "./TimeFilter"
@@ -18,9 +8,6 @@ import Earnings from "../Earnings"
 const LeaderboardPage = () => {
   const { zoraFees, creatorFees } = useLeaderboardProvider()
 
-  const handleClick = () => {
-    console.log("SWEETS CLICKED")
-  }
   return (
     <Layout type="contained">
       <div className="w-full pt-24 mx-auto">
@@ -34,7 +21,7 @@ const LeaderboardPage = () => {
         >
           Leaderboard
         </div>
-        <div className="w-full flex justify-center pb-4">
+        <div className="flex justify-center w-full pb-4">
           <div
             className="font-hanson 
             text-center 
@@ -46,7 +33,7 @@ const LeaderboardPage = () => {
             Currently Tracking: <br /> Zora Protocol Rewards
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-around items-center">
+        <div className="flex flex-col items-center justify-around md:flex-row">
           <Earnings label="Creators are earning" fees={creatorFees} />
           <TimeFilter />
           <Earnings label="Zora is earning" fees={zoraFees} />

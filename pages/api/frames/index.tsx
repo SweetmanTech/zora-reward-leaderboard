@@ -7,6 +7,7 @@ const getFrame = (req) => {
 }
 
 export default async function handler(req: NextRequest): Promise<Response> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data } = await getFrame(req)
   return new NextResponse(
     // Step 3. Use getFrameHtmlResponse to create a Frame response
