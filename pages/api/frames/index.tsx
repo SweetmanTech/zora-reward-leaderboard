@@ -1,10 +1,7 @@
 import { getFrameHtmlResponse } from "@coinbase/onchainkit"
 import { NextRequest, NextResponse } from "next/server"
 
-const getFrame = (req) => {
-  console.log("SWEETS FRAME", req.body)
-  return { data: req.body }
-}
+const getFrame = (req) => ({ data: req.body })
 
 export default async function handler(req: NextRequest): Promise<Response> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
