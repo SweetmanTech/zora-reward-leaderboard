@@ -23,14 +23,11 @@ const useLeaderboard = () => {
         numberOfDays,
       )
       const { tableData, zoraData } = await getTableData(leaderboardData)
-      console.log("SWEETS SUBTRACT ZORA DATA FROM CREATOR FEES", zoraData)
       const { zoraFilteredFees, creatorFilteredFees } = getFilteredTotals(
         totalCreatorFees,
         totalZoraFees,
         zoraData,
       )
-      console.log("SWEETS zoraFilteredFees", zoraFilteredFees)
-      console.log("SWEETS creatorFilteredFees", creatorFilteredFees)
       setCollectors(tableData)
       setCreatorFees(creatorFilteredFees.toString())
       setZoraFees(zoraFilteredFees.toString())
