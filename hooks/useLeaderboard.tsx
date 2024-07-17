@@ -2,12 +2,15 @@ import { useEffect, useState } from "react"
 import { formatEther } from "ethers/lib/utils"
 import { useNetwork } from "wagmi"
 import getLeaderboard from "../lib/getLeaderboard"
+import getZoraFeeRecipients from "../lib/getZoraFeeRecipients"
+import getTableData from "../lib/getTableData"
+import getFilteredTotals from "../lib/getFilteredTotals"
 
 const useLeaderboard = () => {
   const { chain } = useNetwork()
   const [collectors, setCollectors] = useState([])
-  const [creatorFees, setCreatorFees] = useState("")
-  const [zoraFees, setZoraFees] = useState("")
+  const [creatorFees, setCreatorFees] = useState<string>("")
+  const [zoraFees, setZoraFees] = useState<string>("")
   const [numberOfDays, setNumberOfDays] = useState(1)
   const [loading, setLoading] = useState(false)
   const [pagination, setPagination] = useState(100)
@@ -19,22 +22,18 @@ const useLeaderboard = () => {
       const { leaderboardData, totalCreatorFees, totalZoraFees } = await getLeaderboard(
         numberOfDays,
       )
-
-      const tableData = leaderboardData
-        ? leaderboardData.map((item: any) => ({
-            walletAddress: item.creator,
-            nftsOwned: formatEther(item.totalCreatorReward),
-            twitterHandle: "",
-            zoraReward: formatEther(item.zoraReward),
-            ethereumReward: formatEther(item.mainnetReward),
-            baseReward: formatEther(item.baseReward),
-            optimismReward: formatEther(item.optimismReward),
-          }))
-        : []
-
+      const { tableData, zoraData } = await getTableData(leaderboardData)
+      console.log("SWEETS SUBTRACT ZORA DATA FROM CREATOR FEES", zoraData)
+      const { zoraFilteredFees, creatorFilteredFees } = getFilteredTotals(
+        totalCreatorFees,
+        totalZoraFees,
+        zoraData,
+      )
+      console.log("SWEETS zoraFilteredFees", zoraFilteredFees)
+      console.log("SWEETS creatorFilteredFees", creatorFilteredFees)
       setCollectors(tableData)
-      setCreatorFees(totalCreatorFees)
-      setZoraFees(totalZoraFees)
+      setCreatorFees(creatorFilteredFees.toString())
+      setZoraFees(zoraFilteredFees.toString())
       setPagination(100)
       setLoading(false)
     }
