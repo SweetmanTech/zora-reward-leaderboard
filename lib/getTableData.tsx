@@ -18,7 +18,7 @@ const getTableData = async (leaderboardData: any[]) => {
         optimismReward: formatEther(item.optimismReward),
       }
 
-      if (zoraFeeRecipients.includes(item.creator.toLowerCase())) {
+      if (zoraFeeRecipients?.includes(item.creator.toLowerCase())) {
         zoraData.push(formattedData)
       } else {
         tableData.push(formattedData)
