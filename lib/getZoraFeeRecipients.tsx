@@ -5,7 +5,7 @@ const getZoraFeeRecipients = async () => {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
     const data = await response.json()
-    return data.addresses
+    return data.data
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error("Error fetching Zora fee recipients:", error)
